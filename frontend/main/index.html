@@ -10,7 +10,7 @@
         <div id="topbar"></div>
         <br><br><br><br>
         <script>
-            fetch("../topbar/topbar.html")
+            fetch("/topbar/topbar.html")
             .then(res => res.text())
             .then(html => {
             document.getElementById("topbar").innerHTML = html;
@@ -22,10 +22,13 @@
         <br><br><br><br>
         <div id="navbar"></div>
         <script>
-            fetch("../navbar/navbar.html")
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
             .then(res => res.text())
             .then(html => {
-            document.getElementById("navbar").innerHTML = html;
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
             });
         </script>
     </body>
