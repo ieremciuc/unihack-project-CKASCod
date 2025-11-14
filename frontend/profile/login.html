@@ -2,29 +2,26 @@
     <head>
         <title>Folkline - Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/frontend/style.css">
-        <link rel="stylesheet" href="/frontend/navbar/nav-style.css">
-        <link rel="stylesheet" href="/frontend/topbar/top-style.css">
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../navbar/nav-style.css">
+        <link rel="stylesheet" href="../topbar/top-style.css">
     </head>
     <body>
         <div id="topbar"></div>
         <br><br><br><br>
-        <script>
-            fetch("/frontend/topbar/topbar.html")
-            .then(res => res.text())
-            .then(html => {
-            document.getElementById("topbar").innerHTML = html;
-            });
         </script>
         <div class="content">
             <div class="box">
                 <h1>Conectează-te</h1>
                 <p>Bine ai revenit! Introdu parola și adresa de email pentru a continua.</p>
                 <form>
-                    <p>Email</p>
-                    <div class=<input type="text" id="email" name="email"><br>
-                    <p>Password</p>
-                    <input type="text" id="password" name="password"><br>
+                    <div class="login-content">
+                        <p>Email</p>
+                        <div class="centertext"><input type="text" id="email" name="email"></div><br>
+                        <p>Password</p>
+                        <div class="centertext"><input type="password" id="password" name="password"></div><br>
+                    <button class="primary-btn">Conectează-te</button>
+                    </div>
                 </form>
                 <p class="smltxt" style="text-align: center;">Utilizator nou? <a href="/frontend/profile/register.html">Înregistrează-te</a></p>
             </div>
@@ -32,10 +29,20 @@
         <br><br><br><br>
         <div id="navbar"></div>
         <script>
-            fetch("/frontend/navbar/navbar.html")
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
             .then(res => res.text())
             .then(html => {
-            document.getElementById("navbar").innerHTML = html;
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+            });
+            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+            fetch(fetchLocationTop)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
             });
         </script>
     </body>
