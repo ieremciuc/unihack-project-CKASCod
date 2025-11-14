@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Folkline </title>
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="stylecreate.css">
+        <link rel="stylesheet" href="/frontend/navbar/nav-style.css">
+        <link rel="stylesheet" href="/frontend/topbar/top-style.css">
+    </head>
+    <body>
+        <div id="topbar"></div>
+        <br><br><br><br>
+        <script>
+            fetch("/frontend/topbar/topbar.html")
+            .then(res => res.text())
+            .then(html => {
+            document.getElementById("topbar").innerHTML = html;
+            });
+        </script>
+
+        <div class="square">
+            <input type="file" id="filebutton">
+            <button id="continuebutton" disabled> Continue </button>
+        </div>
+        <script>
+            const fileInput = document.getElementById('filebutton');
+            const continuebtn = document.getElementById('continuebutton');
+
+            fileInput.addEventListener('change', ()=>
+            {
+                const file = fileInput.files[0];
+                if(file)
+                    {continuebtn.disabled=false;}
+                });
+                continuebtn.addEventListener('click', () =>{
+                localStorage.setItem('selectedFileName', fileInput.files[0].name);
+                window.local.href = 'Post.html';
+            });
+        </script>
+
+        <br><br><br><br>
+        <div id="navbar"></div>
+        <script>
+            fetch("/frontend/navbar/navbar.html")
+            .then(res => res.text())
+            .then(html => {
+            document.getElementById("navbar").innerHTML = html;
+            });
+        </script>
+    </body>
+</html>
