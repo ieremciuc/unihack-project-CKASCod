@@ -1,0 +1,105 @@
+/*----GENERAL----*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap'); 
+body{
+    margin: 0;
+    padding: 0;
+    background: #1A2332;
+    font-family: 'DM Sans', sans-serif;
+    color:#FFF;
+}
+
+/*----HEADER----*/
+
+.top-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1A2332;
+    border-bottom: 1px solid #2C3A4A;
+}
+
+/*----SEARCH----*/
+
+.search-container{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    background: #2A3344;
+    padding: 10 px 15 px;
+    border-radius: 25px;
+    align-items:center;
+    max-width: 80%;
+    margin: auto;
+}
+
+.search-container input{
+    flex: 1;
+    background: none;
+    border:none;
+    outline:none;
+    font-size: 16px;
+    color:#FFF;
+    padding: 8px;
+    width:10px;
+    align-items:center;
+    
+}
+
+.search-icon{
+    width:22 px;
+    margin-left:10 px;
+}
+
+/*----CONTINENT BUTTONS----*/
+.continent-grid{
+    margin:20 px;
+    height:calc(100vh - 240px);
+    display: grid;
+    grid-template-columns:repeat(2, 1fr);
+    grid-template-rows:repeat(3, 1fr);
+    gap:15 px;
+}
+
+.continent-card{
+    background:#1f2736;
+    border:none;
+    border-radius:20px;
+    color: #ffb65e;
+    font-size: 18 px;
+    font-weight:bold;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+}
+
+.continent-card img{
+    width:80 px;
+    margin-bottom: 8px;
+}
+
+.country-item:hover{
+    background:#32415d;
+}
+
+/*RESULTS*/
+
+.results{
+    margin:20 px;
+    padding:10 px;
+    background:#1f2736;
+    border-radius:15 px;
+}
+
+.result-card{
+    background:#263146;
+    padding:12 px;
+    margin-bottom:10 px;
+    border-radius:10 px;
+}
+
+.hidden{
+    display:none;
+}

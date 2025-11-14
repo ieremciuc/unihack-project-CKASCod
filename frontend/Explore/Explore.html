@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Explore</title>
+         <link rel="stylesheet" href="style.css"></head>
+         <link rel="stylesheet" href="../navbar/nav-style.css">
+         <link rel="stylesheet" href="../topbar/top-style.css">
+        </head>
+    <body>
+
+        <!--PARTEA DE SUS-->
+           <div id="topbar"></div>
+        <br><br><br><br>
+
+
+        <!--SEARCH BAR-->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search..." >
+            <a class="search-btn">
+                <img src="search.svg" alt="Search" >
+            </a>
+        </div>
+
+        <!--REZULTATE CAUTARE-->
+        <section id="searchResults" class="results hidden">
+
+        </section>
+
+        <!--CONTINENTE-->
+        <section class="continent-grid">
+            <button class="continent-card">
+                <img src="continente/europa.png">
+                <span>Europa</span>
+            </button> 
+             <button class="continent-card">
+                <img src="continente/asia.png">
+                <span>Asia</span>
+            </button> 
+             <button class="continent-card">
+                <img src="continente/america-nord.png">
+                <span>America de Nord</span>
+            </button> 
+             <button class="continent-card">
+                <img src="continente/america-sud.png">
+                <span>America de Sud</span>
+            </button> 
+             <button class="continent-card">
+                <img src="continente/africa.png">
+                <span>Africa</span>
+            </button> 
+             <button class="continent-card">
+                <img src="continente/oceania.png">
+                <span>Oceania</span>
+            </button> 
+        </section>
+
+        <!--LISTA TARILOR-->
+        <section id="countryList" class="country-list hidden"></section>
+
+        <!--EVENIMENTE SPECIFICE TARILOR-->
+        <section id="countryEvents" class="results hidden"></section>
+
+        <!--NAVBAR DE JOS-->
+        <br><br><br><br>
+        <div id="navbar"></div>
+        <script>
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+            });
+            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+            fetch(fetchLocationTop)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
+            });
+        </script>
+        
+        <script src="script.js"></script>
+ 
+    </body>
+</html>
