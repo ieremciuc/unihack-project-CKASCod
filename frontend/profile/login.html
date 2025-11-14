@@ -10,19 +10,29 @@
         <div id="topbar"></div>
         <br><br><br><br>
         <script>
-            fetch("../topbar/topbar.html")
+            fetch("/frontend/topbar/topbar.html")
             .then(res => res.text())
             .then(html => {
             document.getElementById("topbar").innerHTML = html;
             });
         </script>
         <div class="content">
-            
+            <div class="box">
+                <h1>Conectează-te</h1>
+                <p>Bine ai revenit! Introdu parola și adresa de email pentru a continua.</p>
+                <form>
+                    <p>Email</p>
+                    <div class=<input type="text" id="email" name="email"><br>
+                    <p>Password</p>
+                    <input type="text" id="password" name="password"><br>
+                </form>
+                <p class="smltxt" style="text-align: center;">Utilizator nou? <a href="/frontend/profile/register.html">Înregistrează-te</a></p>
+            </div>
         </div>
         <br><br><br><br>
         <div id="navbar"></div>
         <script>
-            fetch("../navbar/navbar.html")
+            fetch("/frontend/navbar/navbar.html")
             .then(res => res.text())
             .then(html => {
             document.getElementById("navbar").innerHTML = html;
