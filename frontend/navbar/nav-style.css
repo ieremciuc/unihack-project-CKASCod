@@ -1,24 +1,18 @@
 .nav{
     background-color: #2C3B4E;
     position: fixed;
+    bottom: 12;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 12;
-    width: 95vw;
+    width: 30vw;
     border-radius: 12px;
-}
-
-.nav.stuck {
-  position: fixed;
-  bottom: 0;
-  left: 0;
 }
 
 .navimg-container{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2vh 35vw;
+    padding: 2vh 5vw;
 }
 
 .navimg{
@@ -30,6 +24,9 @@
 /* Adaptiv */
 
 @media (max-width: 768px) {
+    .nav{
+        width: 95vw;
+    }
     .navimg-container{
         padding: 2vh 10vw;
     }

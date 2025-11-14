@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+body{
+    color: #EDE9DE;
+    background-color: #1C2632;
+    font-family: "DM Sans", sans-serif;
+}
+
+h1{
+    font-weight: bold;
+    color: #EDE9DE;
+    margin: 1vh 0;
+}
+
+h2{
+    font-weight: bold;
+    margin: 1vh 0;
+}
+
+p{
+    margin: 1vh 0;
+}
+
+a{
+    color: #FEB161;
+}
+
+input[type="text"], input[type="password"], input[type="email"]{
+    width: 100%;
+    background-color: #1C2632;
+
+    font-size: 1rem;
+    font-family: "DM Sans", sans-serif;
+    color: #C9C2B2;
+    
+    border-radius: 8px;
+    border-style: none;
+
+    padding: 1vh 1vw;
+    margin: auto;
+}
+
+input[type="file"]{
+    font-family: "DM Sans", sans-serif;
+    align-items: left;
+}
+
+.centertext{
+    text-align: center;
+}
+
+.smltxt{
+    font-size: small;
+    color: #C9C2B2;
+}
+
+.content{
+    margin: auto;
+    width: 50vw;
+}
+
+.box{
+    background-color: #2C3B4E;
+    border-radius: 12px;
+    padding: 16px 24px;
+}
+
+.primary-btn{
+    background: linear-gradient(340deg, #A35139, #FEB161);
+    background-size: 200% 200%;
+    background-position: right top;
+    border-style: none;
+    border-radius: 8px;
+    color: #EDE9DE;
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 1vh 1vw;
+    transition: background-position 0.3s;
+}
+
+.primary-btn:hover{
+    background-position: right bottom;
+
+}
+
+/* Login */
+
+.login-content{
+    margin: auto;
+    width: 75%;
+}
+
+/* Adaptiv */
+
+@media (max-width: 768px) {
+    .content{
+        width: 90vw;
+    }
+}
