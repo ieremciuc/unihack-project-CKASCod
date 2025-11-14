@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Folkline - Înregistrează-te</title>
+        <title>Folkline - Register</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../style.css">
     </head>
@@ -10,19 +10,22 @@
             <img src="../logo.svg">
             <br><br>
             <div class="box">
-                <h1>Înregistrează-te</h1>
-                <p>Bine ai venit! Pentru început te rugăm să completezi următoarele informații despre contul tău</p>
+                <h1>Register</h1>
+                <p>Welcome! Firstly, please complete the following information about your new account</p>
                 <form>
                     <div class="login-content">
-                        <p>Nume de utilizator</p>
+                        <p>Username</p>
                         <div class="centertext"><input type="text" id="reg-username" name="username" required></div><br>
                         <p>Email</p>
                         <div class="centertext"><input type="email" id="reg-email" name="email" required></div><br>
-                        <p>Parolă</p>
+                        <p>Password</p>
                         <div class="centertext"><input type="password" id="reg-password" name="password" required></div><br>
-                        <p>Poză de profil</p>
+                        <p>Profile Picture</p>
                         <input type="file" id="profile-picture" name="pfp" required><br><br><br>
-                        <button class="primary-btn" id="register-btn">Conectează-te</button>
+                        <button class="primary-btn" id="register-btn">Register</button>
+                        <button class="secondary-btn" onclick="history.back()">Back</button>
+
+                        <div class="box" id="register-result"></div>
 
                         <script type="module">
                             import { SUPABASE_API_URL } from "../config.js";

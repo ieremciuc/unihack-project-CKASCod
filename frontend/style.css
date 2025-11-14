@@ -79,6 +79,20 @@ input[type="file"]{
     transition: background-position 0.3s;
 }
 
+
+.secondary-btn{
+    background-color: #2C3B4E;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 8px;
+    border-color: #FEB161;
+    color: #FEB161;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+    padding: 1vh 1vw;
+    transition: background-position 0.3s;
+}
+
 .primary-btn:hover{
     background-position: right bottom;
 
