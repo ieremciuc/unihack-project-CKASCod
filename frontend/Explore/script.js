@@ -1,7 +1,7 @@
 //DATE - continente si tari
 
 const GEO={
-    "Europe":["France","Germany","Italy","Spain","United Kingdom"],
+    "Europe":["Romania","France","Germany","Italy","Spain","United Kingdom"],
     "Asia":["China","India","Japan","South Korea","Indonesia"],
     "Africa":["Nigeria","Ethiopia","Egypt","South Africa","Kenya"],
     "North America":["United States","Canada","Mexico","Cuba","Panama"],
@@ -65,10 +65,19 @@ function showCountryEvents(country){
         const card = document.createElement("div");
         card.classList.add("result-card");
 
+        //toggle participa
         card.innerHTML = `
             <h3>${event.titlu}</h3>
             <p>${event.descriere}</p>
+            <button class="toggle-btn">Participa</button>
         `;
+        const btn = card.querySelector(".toggle-btn");
+        btn.onclick = () =>{
+            btn.innerText =
+                btn.innerText === "Participa"
+                ?"Participi la acest eveniment"
+                :"Participa";
+        };
 
         countryEvents.appendChild(card);
     });
@@ -111,10 +120,14 @@ searchInput.addEventListener("input", () => {
 
     //AFISEAZA REZULTATELE
     searchResults.innerHTML = "";
+
     rezultate.forEach(item => {
         const card = document.createElement("div");
         card.classList.add("result-card");
-        card.innerHTML = `<h3>${item.titlu}</h3> <p>${item.descriere}</p> <small>${item.country}</small>`;
+        card.innerHTML = `
+             <h3>${item.titlu}</h3> 
+             <p>${item.descriere}</p> 
+             <small>${item.country}</small>`;
         searchResults.appendChild(card);
     });
 

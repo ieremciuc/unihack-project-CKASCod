@@ -11,7 +11,7 @@
     <body>
 
         <!--PARTEA DE SUS-->
-           <div id="topbar"></div>
+        <div id="topbar"></div>
         <br><br><br><br>
 
 
@@ -24,34 +24,32 @@
         </div>
 
         <!--REZULTATE CAUTARE-->
-        <section id="searchResults" class="results hidden">
-
-        </section>
+        <section id="searchResults" class="results hidden"></section>
 
         <!--CONTINENTE-->
-        <section class="continent-grid">
-            <button class="continent-card">
-                <img src="continente/europa.png">
+        <section id="continentGrid" class="continent-grid">
+            <button class="continent-card" data-continent="Europe">
+                <img src="continente/europa.jpg" alt="Europa">
                 <span>Europa</span>
             </button> 
-             <button class="continent-card">
-                <img src="continente/asia.png">
+             <button class="continent-card" data-continent="Asia">
+                <img src="continente/asia.jpg" alt="Asia">
                 <span>Asia</span>
             </button> 
-             <button class="continent-card">
-                <img src="continente/america-nord.png">
+             <button class="continent-card" data-continent="North America">
+                <img src="continente/america-nord.jpg" alt="North America">
                 <span>America de Nord</span>
             </button> 
-             <button class="continent-card">
-                <img src="continente/america-sud.png">
+             <button class="continent-card" data-continent="South America">
+                <img src="continente/america-sud.jpg" alt="South America">
                 <span>America de Sud</span>
             </button> 
-             <button class="continent-card">
-                <img src="continente/africa.png">
+             <button class="continent-card" data-continent="Africa">
+                <img src="continente/africa.jpg" alt="Africa">
                 <span>Africa</span>
             </button> 
-             <button class="continent-card">
-                <img src="continente/oceania.png">
+             <button class="continent-card" data-continent="Oceania">
+                <img src="continente/oceania.jpg" alt="Oceania">
                 <span>Oceania</span>
             </button> 
         </section>
@@ -83,6 +81,7 @@
             });
         </script>
         
+        <!--PAGE LOGIC-->
         <script src="script.js"></script>
  
     </body>
