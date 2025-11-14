@@ -7,7 +7,7 @@ import bcrypt from "bcrypt"; // for password hashing
 import fs from "fs";
 import path from "path";
 
-const countryCodesPath = path.resolve("./countryCodes.json");
+const countryCodesPath = path.resolve("./country-codes.json");
 const countryCodes = JSON.parse(fs.readFileSync(countryCodesPath, "utf-8"));
 
 dotenv.config();
