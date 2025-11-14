@@ -8,16 +8,6 @@
         <link rel="stylesheet" href="/frontend/topbar/top-style.css">
     </head>
     <body>
-        <div id="topbar"></div>
-        <br><br><br><br>
-        <script>
-            fetch("/frontend/topbar/topbar.html")
-            .then(res => res.text())
-            .then(html => {
-            document.getElementById("topbar").innerHTML = html;
-            });
-        </script>
-
         <div class="square">
             <input type="file" id="filebutton">
             <button id="continuebutton" disabled> Continue </button>
@@ -37,15 +27,5 @@
                 window.local.href = 'Post.html';
             });
         </script>
-
-        <br><br><br><br>
-        <div id="navbar"></div>
-        <script>
-            fetch("/frontend/navbar/navbar.html")
-            .then(res => res.text())
-            .then(html => {
-            document.getElementById("navbar").innerHTML = html;
-            });
-        </script>
     </body>
 </html>
