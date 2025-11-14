@@ -3,9 +3,19 @@
         <title>Folkline - Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="../navbar/nav-style.css">
+        <link rel="stylesheet" href="/frontend/navbar/nav-style.css">
+        <link rel="stylesheet" href="/frontend/topbar/top-style.css">
     </head>
     <body>
+        <div id="topbar"></div>
+        <br><br><br>
+        <script>
+            fetch("/frontend/topbar/topbar.html")
+            .then(res => res.text())
+            .then(html => {
+            document.getElementById("topbar").innerHTML = html;
+            });
+        </script>
         <div class="content">
             
         </div>
