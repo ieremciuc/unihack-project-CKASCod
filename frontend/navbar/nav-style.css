@@ -4,7 +4,7 @@
     bottom: 12;
     left: 50%;
     transform: translateX(-50%);
-    width: 95vw;
+    width: 30vw;
     border-radius: 12px;
 }
 
@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2vh 35vw;
+    padding: 2vh 5vw;
 }
 
 .navimg{
@@ -24,6 +24,9 @@
 /* Adaptiv */
 
 @media (max-width: 768px) {
+    .nav{
+        width: 95vw;
+    }
     .navimg-container{
         padding: 2vh 10vw;
     }
