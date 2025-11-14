@@ -6,9 +6,13 @@
         <link rel="stylesheet" href="../navbar/nav-style.css">
     </head>
     <body>
+        <div class="content">
+            
+        </div>
+        <br><br><br>
         <div id="navbar"></div>
         <script>
-            fetch("../navbar/navbar.html")
+            fetch("/frontend/navbar/navbar.html")
             .then(res => res.text())
             .then(html => {
             document.getElementById("navbar").innerHTML = html;

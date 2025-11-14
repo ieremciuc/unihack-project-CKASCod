@@ -1,20 +1,28 @@
 .nav{
     background-color: #2C3B4E;
-    position: absolute;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 12;
-    width: 99vw;
+    width: 95vw;
     border-radius: 12px;
+}
+
+.nav.stuck {
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 .navimg-container{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2vh 25vw;
+    padding: 2vh 35vw;
 }
 
 .navimg{
-    width: 2vw;
+    width: 1.5vw;
     min-width: 24px;
     aspect-ratio: 1 / 1;
 }
@@ -23,6 +31,6 @@
 
 @media (max-width: 768px) {
     .navimg-container{
-        padding: 2vh 5vw;
+        padding: 2vh 10vw;
     }
 }
