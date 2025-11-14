@@ -44,7 +44,7 @@ app.post("/p_users/register", async (req, res) => {
     const { username, email, password, profile_picture_link } = req.body;
 
     if (!username || !email || !password)
-      return res.status(400).json({ error: "All fields are required" });
+      return res.status(400).json({ error: "All fields are required!" });
 
     // Check if email or username already exists
     const { data: existingUser } = await supabase
@@ -54,7 +54,7 @@ app.post("/p_users/register", async (req, res) => {
       .maybeSingle();
 
     if (existingUser)
-      return res.status(400).json({ error: "Email or username already in use" });
+      return res.status(400).json({ error: "Email or username already in use!" });
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
