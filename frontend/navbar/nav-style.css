@@ -1,0 +1,28 @@
+.nav{
+    background-color: #2C3B4E;
+    position: absolute;
+    bottom: 12;
+    width: 99vw;
+    border-radius: 12px;
+}
+
+.navimg-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2vh 25vw;
+}
+
+.navimg{
+    width: 2vw;
+    min-width: 24px;
+    aspect-ratio: 1 / 1;
+}
+
+/* Adaptiv */
+
+@media (max-width: 768px) {
+    .navimg-container{
+        padding: 2vh 5vw;
+    }
+}

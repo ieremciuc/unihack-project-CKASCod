@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Folkline - Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../navbar/nav-style.css">
+    </head>
+    <body>
+        <div id="navbar"></div>
+        <script>
+            fetch("../navbar/navbar.html")
+            .then(res => res.text())
+            .then(html => {
+            document.getElementById("navbar").innerHTML = html;
+            });
+        </script>
+    </body>
+</html>
