@@ -1,21 +1,38 @@
 <html>
     <head>
-        <title>Folkline - Home</title>
+        <title>Folkline - Acasă</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../style.css">
         <link rel="stylesheet" href="../navbar/nav-style.css">
+        <link rel="stylesheet" href="../topbar/top-style.css">
     </head>
     <body>
+        <div id="topbar"></div>
+        <br><br><br><br>
         <div class="content">
             
         </div>
-        <br><br><br>
-        <div id="navbar"></div>
+        <br><br><br><br>
+        <div id="navbar" data-active="home"></div>
         <script>
-            fetch("/frontend/navbar/navbar.html")
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
             .then(res => res.text())
             .then(html => {
-            document.getElementById("navbar").innerHTML = html;
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+                navbar.innerHTML = html;
+                const active = navbar.dataset.active;
+                const icon = navbar.querySelector(`[data-icon="${active}"]`);
+                if (icon) icon.classList.add("active");
+            });
+            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+            fetch(fetchLocationTop)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
             });
         </script>
     </body>

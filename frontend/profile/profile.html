@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>Folkline - Profil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../navbar/nav-style.css">
+        <link rel="stylesheet" href="../topbar/top-style.css">
+    </head>
+    <body>
+        <div id="topbar"></div>
+        <br><br><br><br>
+        <div class="content">
+            <h2>Profil</h2>
+            <div class="display-profile">
+                <div class="img-profile"><img src="pfp.png" class="pfp-large"></div>
+                <div class="title-profile">
+                    <h2>Setap Dede</h2>
+                </div>
+            </div>
+            <div class="infobox-container">
+                <div class="infobox">
+                    <p>Postări</p>
+                    <h2>20</h2>
+                </div>
+                <div class="infobox">
+                    <p>Urmăritori</p>
+                    <h2>3.141</h2>
+                </div>
+                <div class="infobox">
+                    <p>Urmărește</p>
+                    <h2>420</h2>
+                </div>
+            </div>
+            <br>
+
+        <! -- Postări -->
+            <div class="tabs">
+                <button class="tab-link" onclick="openType(event, 'Postări')"  id="defaultOpen">Postări</button>
+                <button class="tab-link" onclick="openType(event, 'Evenimente')">Evenimente</button>
+                <button class="tab-link" onclick="openType(event, 'Souvenirs')">Suveniruri</button>
+            </div>
+            <div id="Postări" class="tab-content">
+                <div class="post">
+                    <h2>Venice at night</h2>
+                    <p class="smltxt">31 February 2025</p>
+                    <img class="post-img" src="venice.jpg">
+                    <div class="button-container">
+                        <img class="img-button" src="../icons/like.svg">
+                        <p>test</p>
+                    </div>
+                </div>
+            </div>
+            <! -- Evenimente  -->    
+            <div id="Evenimente" class="tab-content">
+                <div class="box">
+                    <div class="event">
+                        <img src="venice.jpg" class="event-img">
+                        <div class="event-info">
+                            <h2>Ieșire în Veneția</h2>
+                            <div class="button-container-side">
+                                <div class="button-container">
+                                    <img class="img-button" src="../icons/location.svg">
+                                    <p>Italia</p>
+                                </div>
+                                <div class="button-container">
+                                    <img class="img-button" src="../icons/calendar.svg">
+                                    <p>31 februarie 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;"><button class="primary-btn">Participă</button></div>
+                    </div>
+                </div>
+            </div>
+            <! -- Souvenirs  -->
+            <div id="Souvenirs" class="tab-content">
+                <p class="smltxt">Coming soon</p>
+            </div>
+            <script>
+                function openType(evt, Name) {
+                var i, tabcontent, tablink;
+                tabcontent = document.getElementsByClassName("tab-content");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablink = document.getElementsByClassName("tab-link");
+                for (i = 0; i < tablink.length; i++) {
+                    tablink[i].className = tablink[i].className.replace(" active", "");
+                }
+                document.getElementById(Name).style.display = "block";
+                evt.currentTarget.className += " active";
+                }
+                document.getElementById("defaultOpen").click();
+            </script>
+        </div>
+
+        <br><br><br><br>
+        <div id="navbar" data-active="profile"></div>
+        <script>
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+                navbar.innerHTML = html;
+                const active = navbar.dataset.active;
+                const icon = navbar.querySelector(`[data-icon="${active}"]`);
+                if (icon) icon.classList.add("active");
+            });
+            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+            fetch(fetchLocationTop)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
+            });
+        </script>
+    </body>
+</html>
