@@ -102,8 +102,8 @@
             method: "POST",
             body: formData
           });
-          const { public_id } = await uploadRes.json();
-          const result = await request("/p_users/register", "POST", { username, email, password, profile_picture: public_id });
+          const { secure_url } = await uploadRes.json();
+          const result = await request("/p_users/register", "POST", { username, email, password, profile_picture_link: secure_url });
           document.querySelector("#register-result").textContent = JSON.stringify(result, null, 2);
         } else {
           const result = await request("/p_users/register", "POST", { username, email, password });

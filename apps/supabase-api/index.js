@@ -41,7 +41,7 @@ const PORT = process.env.PORT;
 
 app.post("/p_users/register", async (req, res) => {
   try {
-    const { username, email, password, profile_picture } = req.body;
+    const { username, email, password, profile_picture_link } = req.body;
 
     if (!username || !email || !password)
       return res.status(400).json({ error: "All fields are required" });
@@ -62,7 +62,7 @@ app.post("/p_users/register", async (req, res) => {
     // Insert new user
     const { data, error } = await supabase
       .from("p_users")
-      .insert([{ username, email, password: hashedPassword, created_at: new Date(), profile_picture }])
+      .insert([{ username, email, password: hashedPassword, created_at: new Date(), profile_picture_link }])
       .select()
       .single();
 
