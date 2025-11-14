@@ -39,4 +39,40 @@ const supabase = createClient(
 
 const PORT = process.env.PORT;
 
+app.post("/p_users/register", async (req, res) => {
+  try {
+    const { username, email, password, profile_picture } = req.body;
+
+    if (!username || !email || !password)
+      return res.status(400).json({ error: "All fields are required" });
+
+    // Check if email or username already exists
+    const { data: existingUser } = await supabase
+      .from("p_users")
+      .select("email, username")
+      .or(`email.eq.${email},username.eq.${username}`)
+      .maybeSingle();
+
+    if (existingUser)
+      return res.status(400).json({ error: "Email or username already in use" });
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Insert new user
+    const { data, error } = await supabase
+      .from("p_users")
+      .insert([{ username, email, password: hashedPassword, created_at: new Date(), profile_picture }])
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.listen(PORT, () => console.log(`Supabase API running on port ${PORT}`));
