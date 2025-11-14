@@ -22,3 +22,21 @@ app.use(cors({
 app.use(express.json());
 
 const upload = multer({ dest: "uploads/" });
+
+app.post("/upload", upload.single("file"), async (req, res) => {
+  try {
+    const filePath = req.file.path;
+
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder: "CKASCod"
+    });
+
+    res.json({
+      public_id: result.public_id,
+      secure_url: result.secure_url
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Upload failed" });
+  }
+});
