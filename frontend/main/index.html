@@ -2,30 +2,33 @@
     <head>
         <title>Folkline - Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/frontend/style.css">
-        <link rel="stylesheet" href="/frontend/navbar/nav-style.css">
-        <link rel="stylesheet" href="/frontend/topbar/top-style.css">
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../navbar/nav-style.css">
+        <link rel="stylesheet" href="../topbar/top-style.css">
     </head>
     <body>
         <div id="topbar"></div>
         <br><br><br><br>
-        <script>
-            fetch("../topbar/topbar.html")
-            .then(res => res.text())
-            .then(html => {
-            document.getElementById("topbar").innerHTML = html;
-            });
-        </script>
         <div class="content">
             
         </div>
         <br><br><br><br>
         <div id="navbar"></div>
         <script>
-            fetch("../navbar/navbar.html")
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
             .then(res => res.text())
             .then(html => {
-            document.getElementById("navbar").innerHTML = html;
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+            });
+            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+            fetch(fetchLocationTop)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
             });
         </script>
     </body>
