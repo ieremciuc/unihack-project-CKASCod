@@ -25,8 +25,8 @@ a{
     color: #FEB161;
 }
 
-input[type="text"]{
-    width: 98%;
+input[type="text"], input[type="password"], input[type="email"]{
+    width: 100%;
     background-color: #1C2632;
 
     font-size: 1rem;
@@ -38,6 +38,11 @@ input[type="text"]{
 
     padding: 1vh 1vw;
     margin: auto;
+}
+
+input[type="file"]{
+    font-family: "DM Sans", sans-serif;
+    align-items: left;
 }
 
 .centertext{
@@ -57,7 +62,33 @@ input[type="text"]{
 .box{
     background-color: #2C3B4E;
     border-radius: 12px;
+    padding: 16px 24px;
+}
+
+.primary-btn{
+    background: linear-gradient(340deg, #A35139, #FEB161);
+    background-size: 200% 200%;
+    background-position: right top;
+    border-style: none;
+    border-radius: 8px;
+    color: #EDE9DE;
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
     padding: 1vh 1vw;
+    transition: background-position 0.3s;
+}
+
+.primary-btn:hover{
+    background-position: right bottom;
+
+}
+
+/* Login */
+
+.login-content{
+    margin: auto;
+    width: 75%;
 }
 
 /* Adaptiv */
