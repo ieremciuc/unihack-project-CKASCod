@@ -84,11 +84,156 @@ input[type="file"]{
 
 }
 
+.img-button{
+    width: auto;
+    height: 20px;
+}
+
+.button-container{
+    margin: 2vh 0 2vh 0;
+    display: flex;
+    vertical-align: middle;
+}
+
+.button-container p{
+    margin: 0 12px 0 12px;
+}
+
+.button-container-side{
+    display: flex;
+    flex-direction: row;
+}
+
+/* Infobox */
+
+.infobox-container{
+    display: flex;
+    gap: 8px;
+}
+
+.infobox{
+    background-color: #2C3B4E;
+    border-radius: 10px;
+    padding: 12px;
+    flex: 1;
+}
+
+.infobox p, .infobox h2{
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Tabs */
+.tabs {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.tabs button {
+    flex: 1;
+    background-color: inherit;
+    color: #EDE9DE;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.25rem;
+    float: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tabs button:hover{
+    color: #b8b1a3;
+    transition: 0.3s;
+}
+
+.tabs button.active {
+    color: #FEB161;
+    font-weight: bold;
+}
+
+.tab-content {
+  display: none;
+  padding: 16px 0 0 0;
+}
+
+/* Post */
+
+.post{
+    width: 70%;
+    margin: auto;
+}
+
+.post-img{
+    flex: 1;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-color: #EDE9DE;
+    border-width: 2px;
+    border-radius: 10px;
+    border-style: solid;
+}
+
+/* Event */
+
+.event{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.event-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2px;
+}
+
+.event-img{
+    width: 196px;
+    height: 96px;
+    object-fit: cover;
+    border-color: #EDE9DE;
+    border-width: 2px;
+    border-radius: 8px;
+    border-style: solid;
+}
+
 /* Login */
 
 .login-content{
     margin: auto;
     width: 75%;
+}
+
+/* Profile */
+
+.pfp-large{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.display-profile{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2vh 0 2vh 0;
+}
+
+.title-profile{
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+}
+
+.img-profile{
+    object-fit: cover;
 }
 
 /* Adaptiv */
