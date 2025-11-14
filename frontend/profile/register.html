@@ -65,13 +65,13 @@
                                 });
                                 const { secure_url } = await uploadRes.json();
                                 const result = await request("/p_users/register", "POST", { username, email, password, profile_picture_link: secure_url });
-                                document.querySelector("#register-result").textContent = JSON.stringify(result, null, 2);
+                                document.querySelector("#register-result").textContent = "You have registered successfully!";
                                 } else {
                                 const result = await request("/p_users/register", "POST", { username, email, password });
-                                document.querySelector("#register-result").textContent = JSON.stringify(result, null, 2);
+                                document.querySelector("#register-result").textContent = "You have registered successfully!";
                                 }
                             } catch (err) {
-                                document.querySelector("#register-result").textContent = "Upload failed: " + err.message;
+                                document.querySelector("#register-result").textContent = "Error: " + err.message;
                             }
                             });
                         </script>
