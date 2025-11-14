@@ -58,6 +58,25 @@ body{
     /*padding: 30px;*/
 }
 
+/*phone*/
+@media screen and (max-width: 600px){
+    .continent-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/*tablet*/
+@media screen and (min-width: 601px) and (max-width: 1024px){
+    .continent-grid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+/*desktop*/
+@media screen and (min-width: 1025px){
+    .continent-grid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 .continent-card{
     background:#1b2a3a;
     border-radius:18px;
@@ -88,16 +107,35 @@ body{
 }
 
 /*TARI*/
+
+.country-list{
+    padding:10 px;
+    margin-top: 20px;
+    background:#162033;
+    border-radius:16 px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.country-list h2{
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffb65e;
+}
+
 .country-item{
     background:#1f2736;
-    padding:10px;
-    margin: 5px 0;
-    border-radius:10 px;
+    border-radius:12 px;
+    padding:12px;
+    margin-bottom: 10px;
     cursor:pointer;
+    transition: 0.2s ease;
+    font-size: 16px;
 }
 
 .country-item:hover{
-    background:#32415d;
+    background:#2b3a51;
+    transform: translateX(4px);
 }
 
 /*RESULTS*/
