@@ -99,10 +99,13 @@
                 window.location.href = "Select.html";
             });
 
-            document.getElementById("post1").addEventListener("click", () => {
-                window.location.href = "../profile/profile.html";
-                alert("Posted!");
-            });
+            if (result.error) {
+                    alert('Post failed: ' + (result.error.message || result.error));
+                } else {
+                    alert('Event posted successfully!');
+                    localStorage.removeItem('uploadedFile');
+                    window.location.href = '../profile/profile.html';
+                }
 
         </script>
 
