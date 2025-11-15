@@ -266,4 +266,24 @@ app.post("/posts", async (req, res) => {
   }
 });
 
+app.get("/posts/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const { data, error } = await supabase
+      .from("posts")
+      .select("post_id, created_at, event_date, like_count, dislike_count, country_name, user_id, title, content, image, is_event")
+      .eq("post_id", id)
+      .single();
+  
+    if (error || !data)
+      return res.status(404).json({ error: "Post not found" });
+  
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+  
 app.listen(PORT, () => console.log(`Supabase API running on port ${PORT}`));
