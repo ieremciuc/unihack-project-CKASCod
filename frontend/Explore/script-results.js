@@ -11,106 +11,51 @@ const q = normalize(query);
 const container = document.getElementById("searchOutput");
 container.innerHTML = ""; 
 
-// CHECK DATA
-if (typeof POSTARI === "undefined" || typeof EVENIMENTE === "undefined") {
-    container.innerHTML = `<p style="text-align:center; color:#ffb162;">Data not available.</p>`;
-} else {
+// LIKE/DISLIKE DATA
+let likeData = JSON.parse(localStorage.getItem("searchLikes")) || {};
+function saveLikes() {
+    localStorage.setItem("searchLikes", JSON.stringify(likeData));
+}
 
-    let results = [];
+// HELPER: Unique key per post
+function getPostKey(card) {
+    const title = card.querySelector("h3")?.innerText.trim() || "";
+    const country = card.querySelector("p strong")?.nextSibling?.textContent.trim() || "";
+    return (country + "_" + title).replace(/\s+/g, "_").toLowerCase();
+}
 
-    // SEARCH POSTS
-    for (const country in POSTARI) {
-        POSTARI[country].forEach(post => {
-            if (
-                normalize(post.titlu).includes(q) || 
-                normalize(post.descriere).includes(q) || 
-                normalize(country).includes(q)
-            ) {
-                results.push({...post, tara: country, type: "post"});
-            }
-        });
-    }
+// INIT like/dislike button text
+function initLikeDislike(button) {
+    const card = button.closest(".result-card");
+    const key = getPostKey(card);
+    if (!likeData[key]) likeData[key] = { likes: 0, dislikes: 0 };
 
-    // SEARCH EVENTS
-    for (const country in EVENIMENTE) {
-        EVENIMENTE[country].forEach(event => {
-            if (
-                normalize(event.titlu).includes(q) || 
-                normalize(event.descriere).includes(q) || 
-                normalize(country).includes(q)
-            ) {
-                results.push({...event, tara: country, type: "event"});
-            }
-        });
-    }
+    const btns = card.querySelectorAll(".post-actions button");
+    btns.forEach(b => {
+        if (b.innerText.startsWith("👍")) b.innerText = `👍 Like (${likeData[key].likes})`;
+        if (b.innerText.startsWith("👎")) b.innerText = `👎 Dislike (${likeData[key].dislikes})`;
+    });
+}
 
-    // DISPLAY RESULTS
-    if (results.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color:#ffb162;">Query not found</p>`;
-    } else {
+// LIKE/DISLIKE functions
+function likePost(button) {
+    const card = button.closest(".result-card");
+    const key = getPostKey(card);
+    if (!likeData[key]) likeData[key] = { likes: 0, dislikes: 0 };
 
-        results.forEach(item => {
+    likeData[key].likes++;
+    saveLikes();
+    initLikeDislike(button);
+}
 
-            const card = document.createElement("div");
-            card.classList.add("result-card");
+function dislikePost(button) {
+    const card = button.closest(".result-card");
+    const key = getPostKey(card);
+    if (!likeData[key]) likeData[key] = { likes: 0, dislikes: 0 };
 
-            // MEDIA
-            let mediaHTML = "";
-            if (item.imagine) {
-                mediaHTML = `<img src="${item.imagine}" class="result-media" onclick="openMedia('${item.imagine}', 'image')">`;
-            } else if (item.video) {
-                mediaHTML = `
-                    <video class="result-media" onclick="openMedia('${item.video}', 'video')">
-                        <source src="${item.video}" type="video/mp4">
-                    </video>`;
-            }
-
-            card.innerHTML = `
-                ${mediaHTML}
-
-                <div class="result-content">
-                    <h3>${item.titlu}</h3>
-
-                    <p><strong>Country:</strong> ${item.tara}</p>
-
-                    ${item.type === "event" ? `<p><strong>Date:</strong> ${item.data}</p>` : ""}
-                    ${item.type === "event" ? `<p><strong>Location:</strong> ${item.locatie}</p>` : ""}
-
-                    <p>${item.descriere}</p>
-                    <p class="result-meta">By ${item.autor}</p>
-
-                    <div class="post-actions">
-                        <button onclick="likePost()">👍 Like</button>
-                        <button onclick="dislikePost()">👎 Dislike</button>
-                        <button onclick="toggleComments(this)">💬 Comments</button>
-                    </div>
-
-                    <div class="comments-section hidden">
-                        <div class="comment-box">
-                            <textarea placeholder="Write a comment..."></textarea>
-                            <button onclick="addComment(this)">Send</button>
-                        </div>
-                        <div class="comments-list"></div>
-                    </div>
-                </div>
-            `;
-
-            // PARTICIPATE BUTTON (EVENTS ONLY)
-            if (item.type === "event") {
-                const btn = document.createElement("button");
-                btn.classList.add("toggle-btn");
-                btn.innerText = "Participate";
-                btn.onclick = () => {
-                    btn.innerText = btn.innerText === "Participate" 
-                        ? "You are participating" 
-                        : "Participate";
-                };
-                card.appendChild(btn);
-            }
-
-            container.appendChild(card);
-        });
-    }
+    likeData[key].dislikes++;
+    saveLikes();
+    initLikeDislike(button);
 }
 
 /* ==== COMMENT LOGIC ==== */
@@ -167,23 +112,105 @@ modal.addEventListener("click", () => {
     document.getElementById("modalVideo").src = "";
 });
 
-/* ==== LIKE & DISLIKE ==== */
-function likePost(button) {
-    if (!button.classList.contains("liked")) {
-        button.classList.add("liked");
-        button.innerText = "👍 Liked";
-    } else {
-        button.classList.remove("liked");
-        button.innerText = "👍 Like";
-    }
-}
+/* ==== DISPLAY RESULTS ==== */
+if (typeof POSTARI === "undefined" || typeof EVENIMENTE === "undefined") {
+    container.innerHTML = `<p style="text-align:center; color:#ffb162;">Data not available.</p>`;
+} else {
 
-function dislikePost(button) {
-    if (!button.classList.contains("disliked")) {
-        button.classList.add("disliked");
-        button.innerText = "👎 Disliked";
+    let results = [];
+
+    // SEARCH POSTS
+    for (const country in POSTARI) {
+        POSTARI[country].forEach(post => {
+            if (
+                normalize(post.titlu).includes(q) || 
+                normalize(post.descriere).includes(q) || 
+                normalize(country).includes(q)
+            ) {
+                results.push({...post, tara: country, type: "post"});
+            }
+        });
+    }
+
+    // SEARCH EVENTS
+    for (const country in EVENIMENTE) {
+        EVENIMENTE[country].forEach(event => {
+            if (
+                normalize(event.titlu).includes(q) || 
+                normalize(event.descriere).includes(q) || 
+                normalize(country).includes(q)
+            ) {
+                results.push({...event, tara: country, type: "event"});
+            }
+        });
+    }
+
+    // DISPLAY RESULTS
+    if (results.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#ffb162;">No results found</p>`;
     } else {
-        button.classList.remove("disliked");
-        button.innerText = "👎 Dislike";
+        results.forEach(item => {
+            const card = document.createElement("div");
+            card.classList.add("result-card");
+
+            // MEDIA
+            let mediaHTML = "";
+            if (item.imagine) {
+                mediaHTML = `<img src="${item.imagine}" class="result-media" onclick="openMedia('${item.imagine}', 'image')">`;
+            } else if (item.video) {
+                mediaHTML = `
+                    <video class="result-media" onclick="openMedia('${item.video}', 'video')">
+                        <source src="${item.video}" type="video/mp4">
+                    </video>`;
+            }
+
+            card.innerHTML = `
+                ${mediaHTML}
+
+                <div class="result-content">
+                    <h3>${item.titlu}</h3>
+
+                    <p><strong>Country:</strong> ${item.tara}</p>
+
+                    ${item.type === "event" ? `<p><strong>Date:</strong> ${item.data}</p>` : ""}
+                    ${item.type === "event" ? `<p><strong>Location:</strong> ${item.locatie}</p>` : ""}
+
+                    <p>${item.descriere}</p>
+                    <p class="result-meta">By ${item.autor}</p>
+
+                    <div class="post-actions">
+                        <button onclick="likePost(this)">👍 Like</button>
+                        <button onclick="dislikePost(this)">👎 Dislike</button>
+                        <button onclick="toggleComments(this)">💬 Comments</button>
+                    </div>
+
+                    <div class="comments-section hidden">
+                        <div class="comment-box">
+                            <textarea placeholder="Write a comment..."></textarea>
+                            <button onclick="addComment(this)">Send</button>
+                        </div>
+                        <div class="comments-list"></div>
+                    </div>
+                </div>
+            `;
+
+            // PARTICIPATE BUTTON (EVENTS ONLY)
+            if (item.type === "event") {
+                const btn = document.createElement("button");
+                btn.classList.add("toggle-btn");
+                btn.innerText = "Participate";
+                btn.onclick = () => {
+                    btn.innerText = btn.innerText === "Participate" 
+                        ? "You are participating" 
+                        : "Participate";
+                };
+                card.appendChild(btn);
+            }
+
+            container.appendChild(card);
+
+            // INIT like/dislike counters for this card
+            card.querySelectorAll(".post-actions button").forEach(btn => initLikeDislike(btn));
+        });
     }
 }
