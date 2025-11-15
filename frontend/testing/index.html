@@ -127,12 +127,11 @@
   <script type="module">
     import { SUPABASE_API_URL } from "../config.js";
 
-    // ======= Helper request function =======
     async function request(endpoint, method = "GET", body = null) {
       const options = {
         method,
         headers: { "Content-Type": "application/json" },
-        credentials: "include" // ✅ include cookies for session
+        credentials: "include"
       };
       if (body) options.body = JSON.stringify(body);
 

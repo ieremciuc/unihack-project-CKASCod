@@ -20,12 +20,40 @@
                         <div class="centertext"><input type="text" id="username" name="username" required></div><br>
                         <p>Password</p>
                         <div class="centertext"><input type="password" id="password" name="password" required></div><br>
-                    <button class="primary-btn">Login</button>
+                    <button type="button" class="primary-btn">Login</button>
                     <button class="box-btn" onclick="history.back()">Back</button>
                     </div>
+                    <div class="box" id="login-result"></div>
                 </form>
                 <p class="smltxt" style="text-align: center;">New to Folkline? <a href="register.html">Register</a></p>
             </div>
         </div>
+        <script type="module">
+            import { SUPABASE_API_URL } from "../config.js";
+
+            async function request(endpoint, method = "GET", body = null) {
+                const options = {
+                    method,
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include"
+                };
+                if (body) options.body = JSON.stringify(body);
+
+                const res = await fetch(`${SUPABASE_API_URL}${endpoint}`, options);
+                try {
+                    return await res.json();
+                } catch {
+                    return { error: "Invalid JSON response" };
+                }
+            }
+
+            document.querySelector("#login-btn").addEventListener("click", async () => {
+                const emailOrUsername = document.querySelector("#username").value;
+                const password = document.querySelector("#password").value;
+
+                const result = await request("/p_users/login", "POST", { emailOrUsername, password });
+                document.querySelector("#login-result").textContent = "Welcome back " + result.user.username + "!";
+            });
+        </script>
     </body>
 </html>
