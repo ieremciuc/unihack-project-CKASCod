@@ -146,3 +146,43 @@ if ((events.length === 0) && (posts.length === 0)) {
         container.appendChild(card);
     });
 }
+
+// ===== MEDIA MODAL =====
+const modal = document.createElement("div");
+modal.id = "mediaModal";
+modal.classList.add("media-modal", "hidden");
+modal.innerHTML = `
+    <span class="close-modal">&times;</span>
+    <img id="modalImg" class="modal-content hidden">
+    <video id="modalVideo" class="modal-content hidden" controls></video>
+`;
+document.body.appendChild(modal);
+
+const modalImg = document.getElementById("modalImg");
+const modalVideo = document.getElementById("modalVideo");
+const closeModal = modal.querySelector(".close-modal");
+
+// click pe media
+document.addEventListener("click", e => {
+    if(e.target.classList.contains("result-media") || e.target.classList.contains("post-media")){
+        modal.classList.remove("hidden");
+        if(e.target.tagName.toLowerCase() === "img"){
+            modalImg.src = e.target.src;
+            modalImg.classList.remove("hidden");
+            modalVideo.classList.add("hidden");
+        } else if(e.target.tagName.toLowerCase() === "video"){
+            modalVideo.src = e.target.querySelector("source").src;
+            modalVideo.classList.remove("hidden");
+            modalImg.classList.add("hidden");
+        }
+    }
+});
+
+// inchidere modal
+closeModal.onclick = () => {
+    modal.classList.add("hidden");
+    modalImg.classList.add("hidden");
+    modalVideo.classList.add("hidden");
+    modalVideo.pause();
+};
+
