@@ -1,0 +1,84 @@
+{
+    "questions": [
+        {
+            "question": "In what year did Timișoara become the **first city in Eastern Europe** to have its streets illuminated with electric public lighting?",
+            "choiceA": "1849",
+            "choiceB": "1884",
+            "choiceC": "1903",
+            "choiceD": "1918",
+            "correct": "choiceB"
+        },
+        {
+            "question": "Timișoara is often referred to by a nickname due to its similar architectural style, reflecting its history within the Austrian Empire. What is this nickname?",
+            "choiceA": "\"The City of Roses\"",
+            "choiceB": "\"Little Paris\"",
+            "choiceC": "\"Little Vienna\"",
+            "choiceD": "\"The Garden of the West\"",
+            "correct": "choiceC"
+        },
+        {
+            "question": "Which major historical event in Romania began in Timișoara in December 1989?",
+            "choiceA": "The Great Union",
+            "choiceB": "The Romanian Revolution",
+            "choiceC": "The Peasant Revolt",
+            "choiceD": "The First World War",
+            "correct": "choiceB"
+        },
+        {
+            "question": "Which river flows through the city of Timișoara?",
+            "choiceA": "The Danube",
+            "choiceB": "The Mureș",
+            "choiceC": "The Bega",
+            "choiceD": "The Tisza",
+            "correct": "choiceC"
+        },
+        {
+            "question": "What is the name of the most prominent Baroque-style square in Timișoara's historic center, home to the Roman Catholic Cathedral?",
+            "choiceA": "Piața Victoriei",
+            "choiceB": "Piața Unirii",
+            "choiceC": "Piața Libertății",
+            "choiceD": "Piața Traian",
+            "correct": "choiceB"
+        },
+        {
+            "question": "Timișoara was the European Capital of Culture in which year?",
+            "choiceA": "2019",
+            "choiceB": "2021",
+            "choiceC": "2023",
+            "choiceD": "2025",
+            "correct": "choiceC"
+        },
+        {
+            "question": "The city is located in the historical region of Romania known as:",
+            "choiceA": "Transylvania",
+            "choiceB": "Moldavia",
+            "choiceC": "Oltenia",
+            "choiceD": "Banat",
+            "correct": "choiceD"
+        },
+        {
+            "question": "What is the name of the large Orthodox cathedral, a symbol of the city, located in Piața Victoriei (Victory Square)?",
+            "choiceA": "St. George's Cathedral",
+            "choiceB": "Metropolitan Cathedral",
+            "choiceC": "Millennium Church",
+            "choiceD": "Synagogue in Fabric",
+            "correct": "choiceB"
+        },
+        {
+            "question": "The **Huniade Castle** (Castelul Huniade), the oldest building in Timișoara, now houses which institution?",
+            "choiceA": "The Timișoara City Hall",
+            "choiceB": "The National Theatre",
+            "choiceC": "The Banat Museum",
+            "choiceD": "The Philharmonic",
+            "correct": "choiceC"
+        },
+        {
+            "question": "What mode of public transport, besides buses, operates in Timișoara and is a key part of its public transit system?",
+            "choiceA": "Subway",
+            "choiceB": "Trolleybus",
+            "choiceC": "Monorail",
+            "choiceD": "Ferry",
+            "correct": "choiceB"
+        }
+    ]
+}

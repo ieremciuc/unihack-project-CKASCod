@@ -21,7 +21,7 @@
             <div class="box">
                 <h2>Visit Timișoara</h2>
                 <p>Think you know everything about this remarkable Romanian city? Try this test to see how you do.<p>
-                <button class="primary-btn">Start</button>
+                <button class="primary-btn" onclick="redirect('timisoara')">Start</button>
             </div> 
         </div>
         <br><br><br><br>
@@ -46,6 +46,10 @@
                 html = html.replaceAll("{{BASE}}", pageBase);
                 document.getElementById("topbar").innerHTML = html;
             });
+
+            function redirect(location){
+                window.location.href = "quiz.html?loader=" + location;
+            }
         </script>
     </body>
 </html>
