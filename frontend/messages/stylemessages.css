@@ -61,6 +61,7 @@ body{
 {
     background-color: #2c3a4a;
     max-width: fit-content;
+    max-width: 50%;
     border-radius: 10px;
     float: left;
     padding: 1vh;
@@ -72,6 +73,7 @@ body{
 {
     background-color: #2c3a4a;
     max-width: fit-content;
+    max-width: 50%;
     border-radius: 10px;
     float: right;
     padding: 1vh;
