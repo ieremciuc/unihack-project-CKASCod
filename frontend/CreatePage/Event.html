@@ -19,7 +19,6 @@
                 <div id="list" class="list">
                 </div>
             </div>
-            <input type="text" id="location" placeholder="Location">
             <label for="description">Description</label>
             <textarea id="description" placeholder="insert *cute description*"></textarea>
             <div class="buttons">
@@ -133,7 +132,7 @@
             });
 
             document.getElementById('post1').addEventListener('click', async () => {
-                const title       = document.getElementById('event-title').value.trim();
+                const title  = document.getElementById('event-title').value.trim();
                 const event_date  = document.getElementById('event-date').value;
                 const country_name= document.getElementById('searchbox').value.trim();
                 const content     = document.getElementById('description').value.trim();
