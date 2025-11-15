@@ -1,0 +1,20 @@
+{
+    "questions":[
+        {
+        "question":"Why do I exist?",
+        "choiceA": "Idk",
+        "choiceB": "lol ok",
+        "choiceC": "you",
+        "choiceD": "fuc",
+        "correct": "choiceA"
+        },
+        {
+        "question":"Why do I exist?",
+        "choiceA": "dasdsadas",
+        "choiceB": "lol ok",
+        "choiceC": "you",
+        "choiceD": "fuc",
+        "correct": "choiceA"
+        }
+    ]
+}
