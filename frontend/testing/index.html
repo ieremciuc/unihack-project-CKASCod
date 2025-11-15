@@ -273,7 +273,7 @@
   <input id="get-post-id" placeholder="Post ID" />
   <button id="get-post-btn">Get Post</button>
   <pre id="get-post-result"></pre>
-  
+
   <script type="module">
     import { SUPABASE_API_URL } from "../config.js";
 
@@ -296,6 +296,35 @@
     document.querySelector("#get-post-btn").addEventListener("click", async () => {
       const id = document.querySelector("#get-post-id").value;
       const result = await request(`/posts/${id}`, "GET");
+      document.querySelector("#get-post-result").textContent = JSON.stringify(result, null, 2);
+    });
+  </script>
+
+  <h2>Get Random Post</h2>
+  <button id="get-random-post-btn">Get Random Post</button>
+  <pre id="get-random-post-result"></pre>
+
+  <script type="module">
+    import { SUPABASE_API_URL } from "../config.js";
+
+    async function request(endpoint, method = "GET", body = null) {
+      const options = {
+        method,
+        headers: { "Content-Type": "application/json" },
+        credentials: "include"
+      };
+      if (body) options.body = JSON.stringify(body);
+
+      const res = await fetch(`${SUPABASE_API_URL}${endpoint}`, options);
+      try {
+        return await res.json();
+      } catch {
+        return { error: "Invalid JSON response" };
+      }
+    }
+
+    document.querySelector("#get-random-post-btn").addEventListener("click", async () => {
+      const result = await request("/posts/random", "GET");
       document.querySelector("#get-post-result").textContent = JSON.stringify(result, null, 2);
     });
   </script>

@@ -285,5 +285,28 @@ app.get("/posts/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-  
+
+app.get("/posts/post/random", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from("posts")
+      .select("post_id")
+      .eq("is_event", false)
+      .order("random()")    
+      .limit(1);
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      return res.status(404).json({ error: "No posts found" });
+    }
+
+    res.json(data[0]);
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 app.listen(PORT, () => console.log(`Supabase API running on port ${PORT}`));
