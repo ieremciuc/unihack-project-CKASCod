@@ -225,7 +225,7 @@
       const country_name = document.querySelector("#post-country").value;
       const imageFile = document.querySelector("#post-image").files[0];
       const is_event = isEventCheckbox.checked;
-      const title = is_event ? document.querySelector("#event-title").value : document.querySelector("#post-title").value;
+      const title = is_event ? document.querySelector("#event-title").value : null;
       const event_date = is_event ? document.querySelector("#event-date").value : null;
 
       if (!content) return showResult("create-post-event-result", "Content is required.");
