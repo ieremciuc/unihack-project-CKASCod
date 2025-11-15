@@ -50,12 +50,13 @@ body{
 
 /*----CONTINENT BUTTONS----*/
 .continent-grid{
-    margin:20 px;
+   /* margin:20 px;*/
     /*height:calc(100vh - 240px);*/
     display: grid;
     grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
     gap: 20px;
-    /*padding: 30px;*/
+    padding: 20px;
+    justify-items: center;
 }
 
 /*phone*/
@@ -78,23 +79,29 @@ body{
 }
 
 .continent-card{
+    aspect-ratio: 1 / 1;
     background:#1b2a3a;
-    border-radius:18px;
-    padding:20 px;
+    border:2px solid #1b2632;
+    border-radius:10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align:center;
-    color: white;
+    color: #ffb162;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .continent-card:hover{
     transform:translateY(-4px);
-    background: #223044;
+    background: #1b2632;
 }
 
 .continent-card img{
-    width:70px;
-    height: 70px;
+    width:100px;
+    height: 100px;
     object-fit: contain;
    /* border-radius: 12px;*/
     margin-bottom: 10px;
@@ -110,11 +117,12 @@ body{
 
 .country-list{
     padding:10 px;
-    margin-top: 20px;
-    background:#162033;
+    margin: 20px;
+    background:#25354b;
     border-radius:16 px;
     text-align: center;
     cursor: pointer;
+    border:2px solid #162033
 }
 
 .country-list h2{
@@ -125,7 +133,7 @@ body{
 
 .country-item{
     background:#1f2736;
-    border-radius:12 px;
+    border-radius:10 px;
     padding:12px;
     margin-bottom: 10px;
     cursor:pointer;
@@ -193,36 +201,44 @@ body{
 
 /* CARD general*/
 .result-card{
+    display: flex;
     background:#2c3b4d;
-    padding: 20px;
+    padding: 15px;
     border-radius: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    gap: 15px;
+    align-items: flex-start;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
     transition:transform 0.2 ease;
 }
 
-.result-card:hover{
-    transform: translateY(-3px);
+/*imagine/ video in st*/
+.result-media{
+    width: 130px;
+    height: 130px;
+    border-radius: 12 px;
+    object-fit: cover;
+    background: #2c3b4d;
 }
 
-.result-card h3{
-    margin-top:0;
+/*info dr*/
+.result-content h3{
+    margin: 0;
     color: #ffb162;
-    font-size: 22px;
+    font-size: 1.2rem;
 }
 
-.result-card p{
+.result-content p{
+    margin: 4px 0;
+}
+
+.result-meta{
     color:#c9c1b1;
-    line-height: 1.5;
-    font-size: 16px;
+    font-size: 0.85 rem;
+    margin-top: 4px;
 }
 
-.result-card small{
-    color:#a35139;
-    font-size: 14px;
-    display: block;
-    margin-top: 8px;
-}
+
 
 /*Media*/
 
@@ -246,6 +262,6 @@ body{
 }
 
 .toggle-btn:hover{
-    background: #a35139;
-    color: white;
+
+    opacity: 0.8;
 }

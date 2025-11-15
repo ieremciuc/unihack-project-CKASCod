@@ -1,28 +1,22 @@
-//DATE - continente si tari
+// DATE – continente și țări (statice)
 
-const GEO={
-    "Europe":["Romania","France","Germany","Italy","Spain","United Kingdom"],
-    "Asia":["China","India","Japan","South Korea","Indonesia"],
-    "Africa":["Nigeria","Ethiopia","Egypt","South Africa","Kenya"],
-    "North America":["United States","Canada","Mexico","Cuba","Panama"],
-    "South America":["Brazil","Argentina","Colombia","Chile","Peru"],
-    "Oceania":["Australia","New Zealand","Fiji","Papua New Guinea","Samoa"]
+const GEO = {
+    "Europe": ["Romania", "France", "Germany", "Italy", "Spain", "United Kingdom"],
+    "Asia": ["China", "India", "Japan", "South Korea", "Indonesia"],
+    "Africa": ["Nigeria", "Ethiopia", "Egypt", "South Africa", "Kenya"],
+    "North America": ["United States", "Canada", "Mexico", "Cuba", "Panama"],
+    "South America": ["Brazil", "Argentina", "Colombia", "Chile", "Peru"],
+    "Oceania": ["Australia", "New Zealand", "Fiji", "Papua New Guinea", "Samoa"]
 };
-//DATE MOCK
-const EVENIMENTE={
-    "Romania":[
-        {titlu:"Festivalul Toamnei", descriere:"Traditii si muzica populara"}],
-    "Japan":[
-        {titlu:"Sakura Matsuri", descriere:"Festivalul florilor de cires"}],
-    "Brazil":[
-        {titlu:"Carnavalul de la Rio", descriere:"Parade si petreceri stradale"}]
-    };
 
-//fallback daca nu exista
-function getEvents(country)
-{
-    return EVENIMENTE[country] || [
-        {titlu:"Niciun eveniment disponibil", descriere:" "}
+// FUNCTIE – fallback dacă backend/mock nu are date
+
+function getEvents(country) {
+    if (typeof EVENIMENTE !== "undefined" && EVENIMENTE[country]) {
+        return EVENIMENTE[country];
+    }
+    return [
+        { titlu: "Niciun eveniment disponibil", descriere: " " }
     ];
 }
 
@@ -34,9 +28,18 @@ const countryEvents = document.getElementById("countryEvents");
 const searchInput = document.getElementById("searchInput");
 const searchResults = document.getElementById("searchResults");
 
-//AFISEAZA TARILE DIN CONTINENT
+// FUNCTIE – normalize (fără diacritice)
 
-function showCountries(continent){
+function normalize(str) {
+    return str
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+}
+
+// AFIȘEAZĂ ȚĂRILE DIN CONTINENT
+
+function showCountries(continent) {
     continentGrid.classList.add("hidden");
     countryEvents.classList.add("hidden");
 
@@ -44,43 +47,35 @@ function showCountries(continent){
 
     GEO[continent].forEach(country => {
         const div = document.createElement("div");
-        div.classList.add("coutry-item");
+        div.classList.add("country-item");
         div.innerText = country;
 
         div.onclick = () => {
-             window.location.href = `country.html?country=${encodeURIComponent(country)}`;
+            window.location.href = `country.html?country=${encodeURIComponent(country)}`;
         };
-
 
         countryList.appendChild(div);
     });
+
     countryList.classList.remove("hidden");
 }
 
-//CLICK PE CONTINENTE
+// CLICK PE CONTINENTE
 
 document.querySelectorAll(".continent-card").forEach(btn => {
-    btn.addEventListener("click",() =>{
+    btn.addEventListener("click", () => {
         const continent = btn.getAttribute("data-continent");
         showCountries(continent);
     });
 });
 
-//SEARCH - lansare pagina la enter
-
-function normalize(str){
-    return str
-        .normalize("NFD")
-        .replace(/[u0300-\u036f]/g, "")
-        .toLowerCase();
-}
+// SEARCH – lansează pagina la ENTER
 
 searchInput.addEventListener("keydown", (e) => {
-    if(e.key === "Enter")
-    {
+    if (e.key === "Enter") {
         const q = searchInput.value.trim();
-        if(q.length > 0){
-            window.location.href=`search-results.html?query=${encodeURIComponent(q)}`;
+        if (q.length > 0) {
+            window.location.href = `search-results.html?query=${encodeURIComponent(q)}`;
         }
     }
 });
