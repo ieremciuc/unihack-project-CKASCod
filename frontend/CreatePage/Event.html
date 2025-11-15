@@ -146,7 +146,7 @@
                 const form = new FormData();
                 form.append('file', uploadedFile);
 
-                let public_id;
+                let secure_url;
                 try {
                 const up = await fetch(`${CLOUDINARY_API_URL}/upload`, {
                     method: 'POST',
@@ -154,19 +154,19 @@
                 });
                 const data = await up.json();
                 if (data.error) throw new Error(data.error.message);
-                secure_url = data.secure_url;
+                    secure_url = data.secure_url;
                 } catch (e) {
-                alert('Image upload failed: ' + e.message);
-                return;
+                    alert('Image upload failed: ' + e.message);
+                    return;
                 }
 
                 const payload = {
-                title,
-                event_date,
-                country_name: country_name || null,
-                content,
-                image: secure_url,                         
-                is_event: true
+                    title,
+                    event_date,
+                    country_name: country_name || null,
+                    content,
+                    image: secure_url,                         
+                    is_event: true
                 };
 
                 const result = await request('/posts', 'POST', payload);
