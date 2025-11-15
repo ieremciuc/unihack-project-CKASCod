@@ -57,37 +57,6 @@ function showCountries(continent){
     countryList.classList.remove("hidden");
 }
 
-//AFISEAZA EVENIMENTELE UNEI TARI
-
-function showCountryEvents(country){
-    const lista = getEvents(country);
-
-    countryEvents.innerHTML = `<h2>Evenimente in ${country}</h2><br>`;
-
-    lista.forEach(event => {
-        const card = document.createElement("div");
-        card.classList.add("result-card");
-
-        //toggle participa
-        card.innerHTML = `
-            <h3>${event.titlu}</h3>
-            <p>${event.descriere}</p>
-            <button class="toggle-btn">Participa</button>
-        `;
-        const btn = card.querySelector(".toggle-btn");
-        btn.onclick = () =>{
-            btn.innerText =
-                btn.innerText === "Participa"
-                ?"Participi la acest eveniment"
-                :"Participa";
-        };
-
-        countryEvents.appendChild(card);
-    });
-
-    countryEvents.classList.remove("hidden");
-}
-
 //CLICK PE CONTINENTE
 
 document.querySelectorAll(".continent-card").forEach(btn => {
@@ -97,43 +66,14 @@ document.querySelectorAll(".continent-card").forEach(btn => {
     });
 });
 
-//SEARCH
+//SEARCH - lansare pagina la enter
 
-searchInput.addEventListener("input", () => {
-    const text = searchInput.value.toLowerCase().trim();
-
-    if(text === ""){
-        searchResults.classList.add("hidden");
-        return;
+searchInput.addEventListener("keydown", (e) => {
+    if(e.key === "Enter")
+    {
+        const q = searchInput.value.trim();
+        if(q.length > 0){
+            window.location.href=`search-results.html?query=${encodeURIComponent(q)}`;
+        }
     }
-
-    let rezultate = [];
-
-    for(const country in EVENIMENTE){
-        EVENIMENTE[country].forEach(event => {
-            if(
-                event.titlu.toLowerCase().includes(text) ||
-                event.descriere.toLowerCase().includes(text) ||
-                country.toLowerCase().includes(text)
-            ){
-                rezultate.push({country, titlu: event.titlu, descriere: event.descriere});
-            }
-       });
-    }
-
-    //AFISEAZA REZULTATELE
-    window.location.href = `search-results.html?query=${encodeURIComponent(text)}`;
-
-    rezultate.forEach(item => {
-        const card = document.createElement("div");
-        card.classList.add("result-card");
-        card.innerHTML = `
-             <h3>${item.titlu}</h3> 
-             <p>${item.descriere}</p> 
-             <small>${item.country}</small>`;
-        searchResults.appendChild(card);
-    });
-
-    searchResults.classList.remove("hidden");
-
 });
