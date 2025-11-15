@@ -48,10 +48,10 @@
             }
 
             document.querySelector("#login-btn").addEventListener("click", async () => {
-                const emailOrUsername = document.querySelector("#username").value;
+                const username = document.querySelector("#username").value;
                 const password = document.querySelector("#password").value;
 
-                const result = await request("/p_users/login", "POST", { emailOrUsername, password });
+                const result = await request("/p_users/login", "POST", { username, password });
                 document.querySelector("#login-result").textContent = "Welcome back " + result.user.username + "!";
             });
         </script>
