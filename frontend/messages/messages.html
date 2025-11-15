@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Folkline</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="stylemessages.css">
+    </head>
+    <body>
+        <h2>Chats</h2>
+        <div class="chat" onclick="openChat()">
+            <img src="pp.png">
+            <div>
+                <div class="name">Alice</div>
+                <div class="msg">REAL!</div>
+            </div>
+        </div>
+        <div class="chat" onclick="openChat1()">
+            <img src="pp.png">
+            <div>
+                <div class="name">Mark</div>
+                <div class="msg">That is so cool!!!</div>
+            </div>
+        </div>
+        <div class="chat" onclick="openChat3()">
+            <img src="pp.png">
+            <div>
+                <div class="name">Tom</div>
+                <div class="msg">I wish I was there...</div>
+            </div>
+        </div>
+
+        <script>
+            function openChat() {
+                window.location.href = "chat.html";
+            }
+            function openChat1() {
+                window.location.href = "chat1.html";
+            }
+            function openChat3() {
+                window.location.href = "chat3.html";
+            }
+        </script>
+    </body>
+</html>
