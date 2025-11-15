@@ -10,7 +10,7 @@
         <div id="topbar"></div>
         <br><br><br><br>
         <div class="content">
-            <h2>Profil</h2>
+            <h2>Profile</h2>
             <div class="display-profile">
                 <div class="img-profile"><img src="pfp.png" class="pfp-large"></div>
                 <div class="title-profile">
@@ -19,15 +19,15 @@
             </div>
             <div class="infobox-container">
                 <div class="infobox">
-                    <p>Postări</p>
+                    <p>Posts</p>
                     <h2>20</h2>
                 </div>
                 <div class="infobox">
-                    <p>Urmăritori</p>
+                    <p>Followers</p>
                     <h2>3.141</h2>
                 </div>
                 <div class="infobox">
-                    <p>Urmărește</p>
+                    <p>Following</p>
                     <h2>420</h2>
                 </div>
             </div>
@@ -35,9 +35,9 @@
 
         <! -- Postări -->
             <div class="tabs">
-                <button class="tab-link" onclick="openType(event, 'Postări')"  id="defaultOpen">Postări</button>
-                <button class="tab-link" onclick="openType(event, 'Evenimente')">Evenimente</button>
-                <button class="tab-link" onclick="openType(event, 'Souvenirs')">Suveniruri</button>
+                <button class="tab-link" onclick="openType(event, 'Postări')"  id="defaultOpen">Posts</button>
+                <button class="tab-link" onclick="openType(event, 'Evenimente')">Events</button>
+                <button class="tab-link" onclick="openType(event, 'Souvenirs')">Souvenirs</button>
             </div>
             <div id="Postări" class="tab-content">
                 <div class="post">
@@ -74,7 +74,20 @@
             </div>
             <! -- Souvenirs  -->
             <div id="Souvenirs" class="tab-content">
-                <p class="smltxt">Coming soon</p>
+                <div class="grid">
+                    <div class="gridbox">
+                        <div class="centertext"><img src="venice.jpg" class="grid-img"></div>
+                        <div class="centertext"><h2>Souvenir</h2></div>
+                    </div>
+                    <div class="gridbox">
+                        <div class="centertext"><img src="venice.jpg" class="grid-img"></div>
+                        <div class="centertext"><h2>Souvenir</h2></div>
+                    </div>
+                    <div class="gridbox">
+                        <div class="centertext"><img src="venice.jpg" class="grid-img"></div>
+                        <div class="centertext"><h2>Souvenir</h2></div>
+                    </div>
+                </div>
             </div>
             <script>
                 function openType(evt, Name) {
