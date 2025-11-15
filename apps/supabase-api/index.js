@@ -174,10 +174,10 @@ app.post("/posts", async (req, res) => {
       if (!content)
         return res.status(400).json({ error: "Content is required" });
 
-      let country_id = null;
+      let country_code = null;
       if (country_name) {
-        country_id = countryCodes[country_name];
-        if (!country_id) {
+        country_code = countryCodes[country_name];
+        if (!country_code) {
           return res.status(400).json({ error: `Invalid country name: ${country_name}` });
         }
       }
@@ -187,7 +187,7 @@ app.post("/posts", async (req, res) => {
         .insert([
           {
             country_name,
-            country_id,
+            country_code,
             user_id,
             content,
             image,
@@ -204,10 +204,10 @@ app.post("/posts", async (req, res) => {
       if (!content || !title)
         return res.status(400).json({ error: "Content and title are required" });
 
-      let country_id = null;
+      let country_code = null;
       if (country_name) {
-        country_id = countryCodes[country_name];
-        if (!country_id) {
+        country_code = countryCodes[country_name];
+        if (!country_code) {
           return res.status(400).json({ error: `Invalid country name: ${country_name}` });
         }
       }
@@ -217,7 +217,7 @@ app.post("/posts", async (req, res) => {
         .insert([
           {
             country_name,
-            country_id,
+            country_code,
             user_id,
             content,
             image,
