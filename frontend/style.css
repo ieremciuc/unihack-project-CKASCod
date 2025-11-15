@@ -70,6 +70,26 @@ input[type="file"]{
     margin: 16px 0;
 }
 
+.grid{
+    display: flex;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.gridbox{
+    aspect-ratio: 1/1;
+    background-color: #2C3B4E;
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin: 16px 0;
+    flex: 1;
+}
+
+.grid-img{
+    width: 10vw;
+    aspect-ratio: 1/1;
+}
+
 /* Buttons */
 
 .primary-btn{
@@ -279,5 +299,11 @@ progress::-webkit-progress-value {
 @media (max-width: 768px) {
     .content{
         width: 90vw;
+    }
+    .grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-img{
+        width: 20vw;
     }
 }

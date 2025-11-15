@@ -34,28 +34,40 @@
             const eventRadio = document.getElementById('event');
             const postRadio = document.getElementById('post');
 
-            fileInput.addEventListener('change',() => {
+            fileInput.addEventListener('change', () => {
                 const file = fileInput.files[0];
                 continuebtn.disabled = !file;
             });
 
-            continuebtn.addEventListener('click', ()=>{
-                const file=fileInput.files[0];
-                if(!file) return;
+            continuebtn.addEventListener('click', async () => {
+                const file = fileInput.files[0];
+                if (!file) return;
 
-            localStorage.setItem('selectedFileName', file.name);
+                if (!eventRadio.checked && !postRadio.checked) {
+                    alert('Please select Event or Post.');
+                    return;
+                }
 
-            if(eventRadio.checked)
-            {
-                window.location.href = 'Event.html';
-            } else if(postRadio.checked)
-            {
-                window.location.href = 'Post.html';
-            }else
-            {
-                alert('Please select Event or Post.');
-            }
-        });
+                // Read file as Data URL
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileData = {
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        dataUrl: e.target.result  // base64 string
+                    };
+
+                    // Save to localStorage
+                    localStorage.setItem('uploadedFile', JSON.stringify(fileData));
+
+                    const nextPage = eventRadio.checked ? 'Event.html' : 'Post.html';
+                    window.location.href = nextPage;
+                };
+
+                reader.onerror = () => alert('Failed to read file.');
+                reader.readAsDataURL(file);
+            });
         </script>
 
         <br><br><br><br>

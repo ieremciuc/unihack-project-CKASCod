@@ -134,4 +134,111 @@ app.post("/p_users/logout", (req, res) => {
   });
 });
 
+async function getBasicUserInfo(user_id) {
+  if (!user_id) throw new Error("Missing user_id");
+
+  const { data, error } = await supabase
+    .from("p_users")
+    .select("username, profile_picture")
+    .eq("user_id", user_id)
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+app.get("/p_users/:id/basic", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await getBasicUserInfo(id);
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(404).json({ error: "User not found" });
+  }
+});
+
+app.post("/posts", async (req, res) => {
+  try {
+    const {
+      country_name,
+      title,
+      content,
+      image,
+      is_event,
+      event_date
+    } = req.body;
+    if (!req.session.userId) {
+      return res.status(401).json({ error: "User is not logged in!" });
+    }
+    const user_id = req.session.userId;
+
+    if (!is_event) {
+      if (!content)
+        return res.status(400).json({ error: "Content is required!" });
+
+      let country_code = null;
+      if (country_name) {
+        country_code = countryCodes[country_name];
+        if (!country_code) {
+          return res.status(400).json({ error: `Invalid country name: ${country_name}!` });
+        }
+      }
+
+      const { data, error } = await supabase
+        .from("posts")
+        .insert([
+          {
+            country_name,
+            country_code,
+            user_id,
+            content,
+            image,
+            is_event
+          }
+        ])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      res.json({ message: "Post created successfully!", post: data });
+    } else {
+      if (!content || !title)
+        return res.status(400).json({ error: "Content and title are required!" });
+
+      let country_code = null;
+      if (country_name) {
+        country_code = countryCodes[country_name];
+        if (!country_code) {
+          return res.status(400).json({ error: `Invalid country name: ${country_name}!` });
+        }
+      }
+
+      const { data, error } = await supabase
+        .from("posts")
+        .insert([
+          {
+            country_name,
+            country_code,
+            user_id,
+            content,
+            image,
+            is_event,
+            event_date
+          }
+        ])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      res.json({ message: "Event created successfully!", post: data });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.listen(PORT, () => console.log(`Supabase API running on port ${PORT}`));

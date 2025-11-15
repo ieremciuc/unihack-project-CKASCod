@@ -99,6 +99,14 @@
                 window.location.href = "Select.html";
             });
 
+            if (result.error) {
+                    alert('Post failed: ' + (result.error.message || result.error));
+                } else {
+                    alert('Event posted successfully!');
+                    localStorage.removeItem('uploadedFile');
+                    window.location.href = '../profile/profile.html';
+                }
+
         </script>
 
         <br><br><br><br>

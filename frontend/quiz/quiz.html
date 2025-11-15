@@ -34,7 +34,9 @@
             </form>
         </div>
         <script type="module">
-            const data = await fetch('json/quiz.json').then(r => r.json());
+            const params = new URLSearchParams(window.location.search);
+            const loader = params.get("loader");
+            const data = await fetch('json/' + loader + '.json').then(r => r.json());
             const allQC = data.questions.length;
             let i=0, right=0, wrong=0;
             updateQuestion();
