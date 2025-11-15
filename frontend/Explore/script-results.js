@@ -1,41 +1,72 @@
+// FUNCȚIE DE NORMALIZARE (fără diacritice)
 function normalize(str){    
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    return str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
 }
 
-const query = new URLSearchParams(window.location.search).get('query');
+// PRELUARE QUERY DIN URL
+const query = new URLSearchParams(window.location.search).get('query') || "";
 const q = normalize(query);
 
-document.getElementById("searchTitle").innerHTML=`Results for "${query}"</b>`;
+// SETARE TITLU
+document.getElementById("searchTitle").innerText = `Results for "${query}"`;
 
-let results = [];
+// CONTAINER REZULTATE
+const container = document.getElementById("searchOutput");
+container.innerHTML = ""; // reset
 
-for (const country in EVENIMENTE){
-    EVENIMENTE[country].forEach(event => {
-        if(
-            normalize(event.titlu).includes(q)||
-            normalize(event.descriere).includes(q) ||
-            normalize(country).includes(q)
-        ){
-            results.push({...event, tara: country});
-        }
-    });
-};
+// VERIFICĂ DACA DATELE EXISTĂ
+if(typeof POSTARI === "undefined" || typeof EVENIMENTE === "undefined"){
+    container.innerHTML = `<p style="text-align:center; color:#ffb162;">Datele nu sunt disponibile.</p>`;
+} else {
 
-results.forEach(event => {
-    const card = document.createElement("div");
-    card.classList.add("result-card");
+    let results = [];
 
-    card.innerHTML = `
-        <h3>${event.titlu}</h3>
-        <p>${event.descriere}</p>
-        <small>${event.country}</small>
+    // SEARCH POSTĂRI
+    for(const country in POSTARI){
+        POSTARI[country].forEach(post => {
+            if(normalize(post.titlu).includes(q) || 
+               normalize(post.descriere).includes(q) || 
+               normalize(country).includes(q)){
+                results.push({...post, tara: country, type:"post"});
+            }
+        });
+    }
 
-        ${event.imagine ? `<img src="${event.imagine}" class="post-media"/>` : ""}
-        ${event.video ? `<video class="post-media" controls>
-            <source src="${event.video}" type="video/mp4">
-            </video>` : ""
-        }
-    `;
-    document.getElementById("searchOutput").appendChild(card);
+    // SEARCH EVENIMENTE
+    for(const country in EVENIMENTE){
+        EVENIMENTE[country].forEach(event => {
+            if(normalize(event.titlu).includes(q) || 
+               normalize(event.descriere).includes(q) || 
+               normalize(country).includes(q)){
+                results.push({...event, tara: country, type:"event"});
+            }
+        });
+    }
 
-});
+    // AFISARE REZULTATE
+    if(results.length === 0){
+        container.innerHTML = `<p style="text-align:center; color:#ffb162;">Nu s-au găsit rezultate</p>`;
+    } else {
+        results.forEach(item => {
+            const card = document.createElement("div");
+            card.classList.add("result-card");
+
+            let mediaHTML = "";
+            if(item.imagine) mediaHTML = `<img src="${item.imagine}" class="post-media">`;
+            else if(item.video) mediaHTML = `<video class="post-media" controls><source src="${item.video}" type="video/mp4"></video>`;
+
+            card.innerHTML = `
+                ${mediaHTML}
+                <div class="result-content">
+                    <h3>${item.titlu}</h3>
+                    <p><strong>Țara:</strong> ${item.tara}</p>
+                    ${item.type === "event" ? `<p><strong>Data:</strong> ${item.data}</p>` : ""}
+                    ${item.type === "event" ? `<p><strong>Locație:</strong> ${item.locatie}</p>` : ""}
+                    <p>${item.descriere}</p>
+                    <p class="result-meta">By ${item.autor}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+}
