@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <script type="module">
+            import { SUPABASE_API_URL } from "../config.js";
+
+            async function request(endpoint, method = "GET", body = null) {
+            const options = {
+                method,
+                headers: { "Content-Type": "application/json" },
+                credentials: "include"
+            };
+            if (body) options.body = JSON.stringify(body);
+
+            const res = await fetch(`${SUPABASE_API_URL}${endpoint}`, options);
+            try {
+                return await res.json();
+            } catch {
+                return { error: "Invalid JSON response" };
+            }
+            }
+
+            const result = await request("/p_users/me", "GET");
+            if (result.userId) {
+                window.location.href = "/profile.html?userId=" + userId;
+            }
+            else{
+                window.location.href = "login.html";
+            }
+        </script>
+    </body>
+</html>
