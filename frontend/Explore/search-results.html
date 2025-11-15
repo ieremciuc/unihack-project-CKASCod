@@ -1,19 +1,52 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Search Results</title>
-        <link rel = "stylesheet" href="style.css">
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <body>
-        <div class="page wrapper">
-           <h2 id="searchTitle"></h2>
-           <div id="searchOutput"></div>
-        </div>
-       
-        <script src="script.js"></script>
-        <script src="script-results.js"></script>
-        
-    </body>
+    <!-- TOPBAR -->
+    <div id="topbar"></div>
+    <br><br><br><br>
+
+    <!-- CONȚINUT -->
+    <div class="page-wrapper">
+        <h2 id="searchTitle"></h2>
+        <div id="searchOutput"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <br><br><br><br>
+    <div id="navbar" data-active="explore"></div>
+
+    <!-- SCRIPTURI NECESARE -->
+    <script src="mock-data.js"></script>
+    <script src="script.js"></script>
+    <script src="script-results.js"></script>
+
+    <!-- TOPBAR + NAVBAR -->
+    <script>
+        const pageBase = "../../";
+
+        fetch(pageBase + "frontend/navbar/navbar.html")
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+                const active = document.getElementById("navbar").dataset.active;
+                const icon = document.getElementById("navbar").querySelector(`[data-icon="${active}"]`);
+                if(icon) icon.classList.add("active");
+            });
+
+        fetch(pageBase + "frontend/topbar/topbar.html")
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
+            });
+    </script>
+
+</body>
 </html>
