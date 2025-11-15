@@ -6,53 +6,41 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/nav-style.css">
     <link rel="stylesheet" href="../topbar/top-style.css">
-
 </head>
 <body>
-
-    <!-- TOPBAR -->
     <div id="topbar"></div>
     <br><br><br><br>
 
-    <!-- CONȚINUT -->
     <div class="page-wrapper">
-        <h2 id="searchTitle"></h2>
+        <h2 id="searchTitle" class="page-title"></h2>
         <div id="searchOutput"></div>
     </div>
 
-    <!-- NAVBAR -->
-    <br><br><br><br>
     <div id="navbar" data-active="explore"></div>
 
-    <!-- SCRIPTURI NECESARE -->
     <script src="mock-data.js"></script>
     <script src="script.js"></script>
     <script src="script-results.js"></script>
 
-    <!-- NAVBAR -->
-   <br><br><br><br>
-        <div id="navbar" data-active="explore"></div>
-        <script>
-            const pageBase = "../../"
-            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
-            fetch(fetchLocation)
-            .then(res => res.text())
-            .then(html => {
-                html = html.replaceAll("{{BASE}}", pageBase);
-                document.getElementById("navbar").innerHTML = html;
-                navbar.innerHTML = html;
-                const active = navbar.dataset.active;
-                const icon = navbar.querySelector(`[data-icon="${active}"]`);
-                if (icon) icon.classList.add("active");
-            });
-            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
-            fetch(fetchLocationTop)
-            .then(res => res.text())
-            .then(html => {
-                html = html.replaceAll("{{BASE}}", pageBase);
-                document.getElementById("topbar").innerHTML = html;
-            });
-        </script>
-
+    <script>
+        const pageBase = "../../"
+        const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+        fetch(fetchLocation)
+        .then(res => res.text())
+        .then(html => {
+            html = html.replaceAll("{{BASE}}", pageBase);
+            document.getElementById("navbar").innerHTML = html;
+            const active = navbar.dataset.active;
+            const icon = navbar.querySelector(`[data-icon="${active}"]`);
+            if (icon) icon.classList.add("active");
+        });
+        const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+        fetch(fetchLocationTop)
+        .then(res => res.text())
+        .then(html => {
+            html = html.replaceAll("{{BASE}}", pageBase);
+            document.getElementById("topbar").innerHTML = html;
+        });
+    </script>
 </body>
 </html>
