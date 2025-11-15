@@ -47,7 +47,10 @@ function showCountries(continent){
         div.classList.add("coutry-item");
         div.innerText = country;
 
-        div.onclick=() => showCountryEvents(country);
+        div.onclick = () => {
+             window.location.href = `country.html?country=${encodeURIComponent(country)}`;
+        };
+
 
         countryList.appendChild(div);
     });
@@ -119,7 +122,7 @@ searchInput.addEventListener("input", () => {
     }
 
     //AFISEAZA REZULTATELE
-    searchResults.innerHTML = "";
+    window.location.href = `search-results.html?query=${encodeURIComponent(text)}`;
 
     rezultate.forEach(item => {
         const card = document.createElement("div");
