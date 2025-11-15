@@ -64,10 +64,10 @@
                                     });
                                     const { secure_url } = await uploadRes.json();
                                     const result = await request("/p_users/register", "POST", { username, email, password, profile_picture_link: secure_url });
-                                    document.querySelector("#register-result").textContent = "You have registered successfully!";
+                                    document.querySelector("#register-result").textContent = "You have registered successfully! You can now login!";
                                 } else {
                                     const result = await request("/p_users/register", "POST", { username, email, password });
-                                    document.querySelector("#register-result").textContent = "You have registered successfully!";
+                                    document.querySelector("#register-result").textContent = "You have registered successfully! You can now login!";
                                 }
                             } catch (err) {
                                 document.querySelector("#register-result").textContent = "Error: " + err.message;
