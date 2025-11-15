@@ -19,7 +19,6 @@
                 <div id="list" class="list">
                 </div>
             </div>
-            <input type="text" id="location" placeholder="Location">
             <label for="description">Description</label>
             <textarea id="description" placeholder="insert *cute description*"></textarea>
             <div class="buttons">
@@ -133,12 +132,12 @@
             });
 
             document.getElementById('post1').addEventListener('click', async () => {
-                const event_name  = document.getElementById('event-title').value.trim();
+                const title  = document.getElementById('event-title').value.trim();
                 const event_date  = document.getElementById('event-date').value;
                 const country_name= document.getElementById('searchbox').value.trim();
                 const content     = document.getElementById('description').value.trim();
 
-                if (!event_name)       return alert('Event title is required');
+                if (!title)       return alert('Event title is required');
                 if (!event_date)  return alert('Event date is required');
                 if (!content)     return alert('Description is required');
                 if (!uploadedFile) return alert('No image - go back and select one');
@@ -161,7 +160,7 @@
                 }
 
                 const payload = {
-                    event_name,
+                    title,
                     event_date,
                     country_name: country_name || null,
                     content,
