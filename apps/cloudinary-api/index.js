@@ -40,3 +40,6 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res.status(500).json({ error: "Upload failed" });
   }
 });
+
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log(`Media API running on port ${PORT}`));

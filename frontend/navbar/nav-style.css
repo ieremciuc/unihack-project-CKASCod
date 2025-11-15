@@ -1,7 +1,7 @@
 .nav{
     background-color: #2C3B4E;
     position: fixed;
-    bottom: 120;
+    bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     width: 30vw;
@@ -12,13 +12,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2vh 5vw;
+    padding: 2vh 2vw;
 }
 
 .navimg{
     width: 1.5vw;
     min-width: 24px;
     aspect-ratio: 1 / 1;
+}
+
+.navimg.active{
+    filter: invert(25%) sepia(33%) saturate(600%) hue-rotate(1deg) brightness(100%) contrast(95%);
 }
 
 /* Adaptiv */
@@ -28,6 +32,6 @@
         width: 95vw;
     }
     .navimg-container{
-        padding: 2vh 10vw;
+        padding: 2vh 5vw;
     }
 }

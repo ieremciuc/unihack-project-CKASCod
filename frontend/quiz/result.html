@@ -10,10 +10,27 @@
         <div id="topbar"></div>
         <br><br><br><br>
         <div class="content">
+        <h1 id="percent"></h1>
+        <h2 id="result"></h2>
+        <p id="result-desc"></p>
+        <script>
+            const params = new URLSearchParams(window.location.search);
+            const right = params.get("right");
+            const wrong = params.get("wrong");
+            const total = Number(right) + Number(wrong);
+            document.getElementById('percent').textContent = Math.trunc(right/total * 100) + '%';
+            if(right/total>=0.7){
+                document.getElementById('result').textContent = 'You did it!';
+            }
+            else
+                document.getElementById('result').textContent = 'Try again...';
+                document.getElementById('result-desc').textContent = 'You answered ' + right + ' question(s) correctly and ' + wrong + ' question(s) wrongly.';
+
+        </script>
             
         </div>
         <br><br><br><br>
-        <div id="navbar" data-active="home"></div>
+        <div id="navbar" data-active="quiz"></div>
         <script>
             const pageBase = "../../"
             const fetchLocation = pageBase + "frontend/navbar/navbar.html"

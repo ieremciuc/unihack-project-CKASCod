@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title>Folkline - Quiz</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../navbar/nav-style.css">
+        <link rel="stylesheet" href="../topbar/top-style.css">
+    </head>
+    <body>
+        <div id="topbar"></div>
+        <br><br><br><br>
+        <div class="content">
+            <p id="questionCnt" style="color: #FEB161">Question 4 / 16</p>
+            <progress id="progressCnt" value="4" max="16"></progress><br><br>
+            <h1 id="question">Who has the biggest building in New York City until September 11, 2001?</h1>
+            <form>
+                <div class="box">
+                    <input type="radio" id="choiceA" name="answer" value="A" required>
+                    <label for="choiceA" id="labelA">Choice A</label>
+                </div>
+                <div class="box">
+                    <input type="radio" id="choiceB" name="answer" value="B">
+                    <label for="choiceB" id="labelB">Choice B</label>
+                </div>
+                <div class="box">
+                    <input type="radio" id="choiceC" name="answer" value="C">
+                    <label for="choiceC" id="labelC">Choice C</label>
+                </div>
+                <div class="box">
+                    <input type="radio" id="choiceD" name="answer" value="D">
+                    <label for="choiceD" id="labelD">Choice D</label>
+                </div><br>
+                <button class="primary-btn" onclick="answered()" type="button">Answer</button>
+            </form>
+        </div>
+        <script type="module">
+            const data = await fetch('json/quiz.json').then(r => r.json());
+            const allQC = data.questions.length;
+            let i=0, right=0, wrong=0;
+            updateQuestion();
+
+            window.updateQuestion = updateQuestion;
+            window.answered = answered;
+
+            function updateQuestion(){
+                document.getElementById('questionCnt').textContent = 'Question ' + parseInt(parseInt(i) + parseInt(1)) + '/' + allQC;
+                document.getElementById('progressCnt').value = i;
+                document.getElementById('progressCnt').max = allQC;
+                document.getElementById('question').textContent = data.questions[i].question;
+                document.getElementById('labelA').textContent = data.questions[i].choiceA;
+                document.getElementById('labelB').textContent = data.questions[i].choiceB;
+                document.getElementById('labelC').textContent = data.questions[i].choiceC;
+                document.getElementById('labelD').textContent = data.questions[i].choiceD;
+            }
+
+            function answered(){
+                const selected = document.querySelector('input[name="answer"]:checked');
+                console.log(selected.value);
+                const radios = document.querySelectorAll('input[name="answer"]');
+                radios.forEach(radio => radio.checked = false);
+                if(selected.id === data.questions[i].correct)
+                    right++;
+                else
+                    wrong++;
+                console.log(right);
+                console.log(wrong);
+                if(i<allQC-1){
+                    i++;
+                    updateQuestion();
+                }
+                else
+                    window.location.href = "result.html?right=" + right + "&wrong=" + wrong;
+            }
+        </script>
+        <br><br><br><br>
+        <div id="navbar" data-active="quiz"></div>
+        <script>
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+                navbar.innerHTML = html;
+                const active = navbar.dataset.active;
+                const icon = navbar.querySelector(`[data-icon="${active}"]`);
+                if (icon) icon.classList.add("active");
+            });
+            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+            fetch(fetchLocationTop)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
+            });
+        </script>
+    </body>
+</html>

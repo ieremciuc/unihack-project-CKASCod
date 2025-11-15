@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Folkline - Conectează-te</title>
+        <title>Folkline - Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../style.css">
         <link rel="stylesheet" href="../navbar/nav-style.css">
@@ -12,19 +12,48 @@
             <img src="../logo.svg">
             <br><br>
             <div class="box">
-                <h1>Conectează-te</h1>
-                <p>Bine ai revenit! Introdu parola și adresa de email pentru a continua.</p>
+                <h1>Login</h1>
+                <p>Welcome back! Login in using your username and password.</p>
                 <form>
                     <div class="login-content">
-                        <p>Nume de utilizator</p>
+                        <p>Username</p>
                         <div class="centertext"><input type="text" id="username" name="username" required></div><br>
-                        <p>Parolă</p>
+                        <p>Password</p>
                         <div class="centertext"><input type="password" id="password" name="password" required></div><br>
-                    <button class="primary-btn">Conectează-te</button>
+                    <button type="button" id="login-btn" class="primary-btn">Login</button>
+                    <button class="box-btn" onclick="history.back()">Back</button>
                     </div>
+                    <div class="box" id="login-result"></div>
                 </form>
-                <p class="smltxt" style="text-align: center;">Utilizator nou? <a href="register.html">Înregistrează-te</a></p>
+                <p class="smltxt" style="text-align: center;">New to Folkline? <a href="register.html">Register</a></p>
             </div>
         </div>
+        <script type="module">
+            import { SUPABASE_API_URL } from "../config.js";
+
+            async function request(endpoint, method = "GET", body = null) {
+                const options = {
+                    method,
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include"
+                };
+                if (body) options.body = JSON.stringify(body);
+
+                const res = await fetch(`${SUPABASE_API_URL}${endpoint}`, options);
+                try {
+                    return await res.json();
+                } catch {
+                    return { error: "Invalid JSON response" };
+                }
+            }
+
+            document.querySelector("#login-btn").addEventListener("click", async () => {
+                const emailOrUsername = document.querySelector("#username").value;
+                const password = document.querySelector("#password").value;
+
+                const result = await request("/p_users/login", "POST", { emailOrUsername, password });
+                document.querySelector("#login-result").textContent = "Welcome back " + result.user.username + "!";
+            });
+        </script>
     </body>
 </html>
