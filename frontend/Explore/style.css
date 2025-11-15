@@ -22,15 +22,13 @@ body{
 /*----SEARCH----*/
 
 .search-container{
-    margin: 10px;
     display: flex;
-    justify-content: center;
     background: #2A3344;
-    padding: 10 px 15 px;
+    padding: 10px 15px;
     border-radius: 25px;
     align-items:center;
     max-width: 80%;
-    margin: auto;
+    margin: 20px auto;
 }
 
 .search-container input{
@@ -41,54 +39,110 @@ body{
     font-size: 16px;
     color:#FFF;
     padding: 8px;
-    width:10px;
-    align-items:center;
+    /*width:10px;
+    align-items:center;*/
     
 }
 
-.search-icon{
+.search-container img{
     width:22 px;
-    margin-left:10 px;
 }
 
 /*----CONTINENT BUTTONS----*/
 .continent-grid{
     margin:20 px;
-    height:calc(100vh - 240px);
+    /*height:calc(100vh - 240px);*/
     display: grid;
-    grid-template-columns:repeat(2, 1fr);
-    grid-template-rows:repeat(3, 1fr);
-    gap:15 px;
+    grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    /*padding: 30px;*/
+}
+
+/*phone*/
+@media screen and (max-width: 600px){
+    .continent-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/*tablet*/
+@media screen and (min-width: 601px) and (max-width: 1024px){
+    .continent-grid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+/*desktop*/
+@media screen and (min-width: 1025px){
+    .continent-grid{
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .continent-card{
-    background:#1f2736;
-    border:none;
-    border-radius:20px;
-    color: #ffb65e;
-    font-size: 18 px;
-    font-weight:bold;
-    display:flex;
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
-    cursor:pointer;
+    background:#1b2a3a;
+    border-radius:18px;
+    padding:20 px;
+    text-align:center;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.continent-card:hover{
+    transform:translateY(-4px);
+    background: #223044;
 }
 
 .continent-card img{
-    width:80 px;
-    margin-bottom: 8px;
+    width:70px;
+    height: 70px;
+    object-fit: contain;
+   /* border-radius: 12px;*/
+    margin-bottom: 10px;
+}
+
+.continent-card span{
+    color: white;
+    font-size: 1.1rem;
+    font-weight:600;
+}
+
+/*TARI*/
+
+.country-list{
+    padding:10 px;
+    margin-top: 20px;
+    background:#162033;
+    border-radius:16 px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.country-list h2{
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffb65e;
+}
+
+.country-item{
+    background:#1f2736;
+    border-radius:12 px;
+    padding:12px;
+    margin-bottom: 10px;
+    cursor:pointer;
+    transition: 0.2s ease;
+    font-size: 16px;
 }
 
 .country-item:hover{
-    background:#32415d;
+    background:#2b3a51;
+    transform: translateX(4px);
 }
 
 /*RESULTS*/
 
 .results{
     margin:20 px;
-    padding:10 px;
+    padding:15 px;
     background:#1f2736;
     border-radius:15 px;
 }
@@ -100,6 +154,98 @@ body{
     border-radius:10 px;
 }
 
+.toggle-btn{
+    margin-top:10px;
+    padding:8px 12px;
+    background-color:#ffb65e;
+    border:none;
+    border-radius:8px;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+}
+
 .hidden{
     display:none;
+}
+
+.post-media{
+    width:100%;
+    border-radius: 14px;
+    margin-top: 10px;
+}
+
+/*--PAGINI NOI--*/
+
+.page-wrapper{
+    max-width: 990px;
+    margin: auto;
+    padding: 25px;
+}
+
+.page-title{
+    font-size: 28px;
+    margin-bottom: 20px;
+    color:#ffb162;
+    font-weight:700;
+    text-align: center;
+}
+
+/* CARD general*/
+.result-card{
+    background:#2c3b4d;
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+    transition:transform 0.2 ease;
+}
+
+.result-card:hover{
+    transform: translateY(-3px);
+}
+
+.result-card h3{
+    margin-top:0;
+    color: #ffb162;
+    font-size: 22px;
+}
+
+.result-card p{
+    color:#c9c1b1;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.result-card small{
+    color:#a35139;
+    font-size: 14px;
+    display: block;
+    margin-top: 8px;
+}
+
+/*Media*/
+
+.post-media{
+    width:100%;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+/*toggle participa*/
+.toggle-btn{
+    margin-top: 12px;
+    padding: 10px 16px;
+    border:none;
+    border-radius: 10px;
+    background:#ffb162;
+    color:#1b2632;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2 ease;
+}
+
+.toggle-btn:hover{
+    background: #a35139;
+    color: white;
 }

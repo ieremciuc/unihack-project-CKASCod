@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Folkline - Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../navbar/nav-style.css">
+        <link rel="stylesheet" href="../topbar/top-style.css">
+    </head>
+    <body>
+        <div id="topbar"></div>
+        <br><br><br><br>
+        <div class="content">
+        <h1 id="percent"></h1>
+        <h2 id="result"></h2>
+        <p id="result-desc"></p>
+        <script>
+            const params = new URLSearchParams(window.location.search);
+            const right = params.get("right");
+            const wrong = params.get("wrong");
+            const total = Number(right) + Number(wrong);
+            document.getElementById('percent').textContent = Math.trunc(right/total * 100) + '%';
+            if(right/total>=0.7){
+                document.getElementById('result').textContent = 'You did it!';
+            }
+            else
+                document.getElementById('result').textContent = 'Try again...';
+                document.getElementById('result-desc').textContent = 'You answered ' + right + ' question(s) correctly and ' + wrong + ' question(s) wrongly.';
+
+        </script>
+            
+        </div>
+        <br><br><br><br>
+        <div id="navbar" data-active="quiz"></div>
+        <script>
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+                navbar.innerHTML = html;
+                const active = navbar.dataset.active;
+                const icon = navbar.querySelector(`[data-icon="${active}"]`);
+                if (icon) icon.classList.add("active");
+            });
+            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+            fetch(fetchLocationTop)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
+            });
+        </script>
+    </body>
+</html>

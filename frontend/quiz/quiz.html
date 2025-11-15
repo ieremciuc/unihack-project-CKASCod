@@ -30,7 +30,7 @@
                     <input type="radio" id="choiceD" name="answer" value="D">
                     <label for="choiceD" id="labelD">Choice D</label>
                 </div><br>
-                <button class="primary-btn" onclick="answered()"  type="button">Answer</button>
+                <button class="primary-btn" onclick="answered()" type="button">Answer</button>
             </form>
         </div>
         <script type="module">
@@ -68,6 +68,8 @@
                     i++;
                     updateQuestion();
                 }
+                else
+                    window.location.href = "result.html?right=" + right + "&wrong=" + wrong;
             }
         </script>
         <br><br><br><br>

@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+body
+{
+    background-color: #1c2632;
+    color: #feb161;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.square
+{
+    background: #2c3b4e;
+    padding: 3rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    justify-content: center;
+}
+
+input, select, textarea, button, #title, #eventdate, #location
+{
+    width: 90%;
+    margin: auto;
+    border: none;
+    font-size: 2.3vh;
+    font-family: "DM Sans", sans-serif;
+    padding: 1vh;
+}
+
+label
+{
+    background-color: #21262d;
+    width: 93.5%;
+    margin: auto;
+}
+
+input::placeholder
+{
+    color: #feb161;
+    opacity: 1;
+}
+
+input[type="file"], #title, #eventdate, #location
+{
+    background-color: #21262d;
+    color: #feb161;
+}
+
+input[type="file"]
+{
+    width: 86.5%;
+}
+
+button
+{
+    background-color: #feb161;
+    font-weight: bold;
+    cursor: pointer;
+    width: 90%;
+    transition: 0.3s;
+}
+
+button:hover
+{
+    opacity: 80%;
+}
+
+input[type="radio"] 
+{
+    width: auto;
+    background-color: #21262d;
+    margin-right: 6px;
+}
+
+.event-post
+{
+    display: flex;
+    width: 80%;
+    margin: auto;
+    background-color: #21262d;
+    flex-direction: row;
+    font-family: "DM Sans", sans-serif;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px; 
+    margin-top: 1vh auto;
+    font-size: 2.3vh;
+}
+
+.search{
+    width: 100%;
+    position: relative;
+    color:#feb161;
+}
+
+#searchbox{
+    width : 90%;
+    margin: auto;
+    border: none;
+    font-size: 2.3vh;
+    font-family: "DM Sans", sans-serif;
+    padding: auto;
+    background-color: #21262d;
+    color: #feb161;
+}
+
+#list
+{
+    display: none;
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    width: 90%;
+    transform: translateX(-50%);
+    background: #2c3b4e;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 6px;
+    z-index: 10;
+}
+
+.dropdown-item
+{
+    padding: 10px;
+    cursor: pointer;
+    color: #feb161;
+    font-family: "DM Sans", sans-serif;
+}
+
+.dropdown-item:hover {
+    background: #3a4a5f;
+}
+
+select, textarea {
+    background: #21262d;
+    color: #feb161;
+    font-family: "DM Sans", sans-serif;
+}
+
+label
+{
+    font-family: "DM Sans", sans-serif;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    margin-left: 2.7vh;
+    max-width: 90%;
+    margin-top: 1vh;
+    gap: 1vh;
+    font-family: "DM Sans", sans-serif;
+}
+
+#post1
+{
+    flex: 1;
+    width: 40%;
+    height:5vh;
+    background-color: #feb161;
+    font-weight: bold;
+    cursor: pointer;
+    width: 90%;
+    transition: 0.3s;
+}
+
+#back1
+{
+    flex: 1;
+    width: 25%;
+    height:5vh;
+}
+
