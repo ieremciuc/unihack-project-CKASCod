@@ -1,7 +1,7 @@
 .nav{
     background-color: #2C3B4E;
     position: fixed;
-    bottom: 12;
+    bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     width: 30vw;

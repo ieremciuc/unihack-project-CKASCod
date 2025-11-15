@@ -1,14 +1,14 @@
 //DATE - continente si tari
 
 const GEO={
-    "Europe":["France","Germany","Italy","Spain","United Kingdom"],
+    "Europe":["Romania","France","Germany","Italy","Spain","United Kingdom"],
     "Asia":["China","India","Japan","South Korea","Indonesia"],
     "Africa":["Nigeria","Ethiopia","Egypt","South Africa","Kenya"],
     "North America":["United States","Canada","Mexico","Cuba","Panama"],
     "South America":["Brazil","Argentina","Colombia","Chile","Peru"],
     "Oceania":["Australia","New Zealand","Fiji","Papua New Guinea","Samoa"]
 };
-
+//DATE MOCK
 const EVENIMENTE={
     "Romania":[
         {titlu:"Festivalul Toamnei", descriere:"Traditii si muzica populara"}],
@@ -47,33 +47,14 @@ function showCountries(continent){
         div.classList.add("coutry-item");
         div.innerText = country;
 
-        div.onclick=() => showCountryEvents(country);
+        div.onclick = () => {
+             window.location.href = `country.html?country=${encodeURIComponent(country)}`;
+        };
+
 
         countryList.appendChild(div);
     });
     countryList.classList.remove("hidden");
-}
-
-//AFISEAZA EVENIMENTELE UNEI TARI
-
-function showCountryEvents(country){
-    const lista = getEvents(country);
-
-    countryEvents.innerHTML = `<h2>Evenimente in ${country}</h2><br>`;
-
-    lista.forEach(event => {
-        const card = document.createElement("div");
-        card.classList.add("result-card");
-
-        card.innerHTML = `
-            <h3>${event.titlu}</h3>
-            <p>${event.descriere}</p>
-        `;
-
-        countryEvents.appendChild(card);
-    });
-
-    countryEvents.classList.remove("hidden");
 }
 
 //CLICK PE CONTINENTE
@@ -85,39 +66,21 @@ document.querySelectorAll(".continent-card").forEach(btn => {
     });
 });
 
-//SEARCH
+//SEARCH - lansare pagina la enter
 
-searchInput.addEventListener("input", () => {
-    const text = searchInput.value.toLowerCase().trim();
+function normalize(str){
+    return str
+        .normalize("NFD")
+        .replace(/[u0300-\u036f]/g, "")
+        .toLowerCase();
+}
 
-    if(text === ""){
-        searchResults.classList.add("hidden");
-        return;
+searchInput.addEventListener("keydown", (e) => {
+    if(e.key === "Enter")
+    {
+        const q = searchInput.value.trim();
+        if(q.length > 0){
+            window.location.href=`search-results.html?query=${encodeURIComponent(q)}`;
+        }
     }
-
-    let rezultate = [];
-
-    for(const country in EVENIMENTE){
-        EVENIMENTE[country].forEach(event => {
-            if(
-                event.titlu.toLowerCase().includes(text) ||
-                event.descriere.toLowerCase().includes(text) ||
-                country.toLowerCase().includes(text)
-            ){
-                rezultate.push({country, titlu: event.titlu, descriere: event.descriere});
-            }
-       });
-    }
-
-    //AFISEAZA REZULTATELE
-    searchResults.innerHTML = "";
-    rezultate.forEach(item => {
-        const card = document.createElement("div");
-        card.classList.add("result-card");
-        card.innerHTML = `<h3>${item.titlu}</h3> <p>${item.descriere}</p> <small>${item.country}</small>`;
-        searchResults.appendChild(card);
-    });
-
-    searchResults.classList.remove("hidden");
-
 });
