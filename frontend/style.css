@@ -67,6 +67,7 @@ input[type="file"]{
     background-color: #2C3B4E;
     border-radius: 12px;
     padding: 16px 24px;
+    margin: 16px 0;
 }
 
 /* Buttons */
@@ -123,6 +124,22 @@ input[type="file"]{
 .button-container-side{
     display: flex;
     flex-direction: row;
+}
+
+/* Progress bar */
+progress{
+    width: 100%;
+    height: 12px;
+    border-radius: 8px;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #2C3B4E;
+  border-radius: 8px;
+}
+progress::-webkit-progress-value {
+  background-color: #FEB161;
+  border-radius: 8px;
 }
 
 /* Infobox */
