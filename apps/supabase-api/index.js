@@ -233,7 +233,7 @@ app.post("/posts", async (req, res) => {
 
       if (error) throw error;
 
-      res.json({ message: "Event created successfully", post: data });
+      res.json({ message: "Event created successfully!", post: data });
     }
   } catch (err) {
     console.error(err);
