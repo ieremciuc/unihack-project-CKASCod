@@ -134,7 +134,20 @@ app.post("/p_users/logout", (req, res) => {
   });
 });
 
-async function getBasicUserInfo(user_id) {
+async function getBasicUserInfoUsername(username) {
+  if (!username) throw new Error("Missing username");
+
+  const { data, error } = await supabase
+    .from("p_users")
+    .select("user_id, profile_picture")
+    .eq("username", user_id)
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+async function getBasicUserInfoId(user_id) {
   if (!user_id) throw new Error("Missing user_id");
 
   const { data, error } = await supabase
@@ -147,10 +160,21 @@ async function getBasicUserInfo(user_id) {
   return data;
 }
 
-app.get("/p_users/:id/basic", async (req, res) => {
+app.get("/p_users/id/:id/basic", async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await getBasicUserInfo(id);
+    const user = await getBasicUserInfoId(id);
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(404).json({ error: "User not found" });
+  }
+});
+
+app.get("/p_users/username/:id/basic", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await getBasicUserInfoUsername(username);
     res.json(user);
   } catch (err) {
     console.error(err);
