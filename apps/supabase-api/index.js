@@ -168,17 +168,20 @@ app.post("/posts", async (req, res) => {
       is_event,
       event_date
     } = req.body;
+    if (!req.session.userId) {
+      return res.status(401).json({ error: "User is not logged in!" });
+    }
     const user_id = req.session.userId;
 
     if (!is_event) {
       if (!content)
-        return res.status(400).json({ error: "Content is required" });
+        return res.status(400).json({ error: "Content is required!" });
 
       let country_code = null;
       if (country_name) {
         country_code = countryCodes[country_name];
         if (!country_code) {
-          return res.status(400).json({ error: `Invalid country name: ${country_name}` });
+          return res.status(400).json({ error: `Invalid country name: ${country_name}!` });
         }
       }
 
@@ -199,16 +202,16 @@ app.post("/posts", async (req, res) => {
 
       if (error) throw error;
 
-      res.json({ message: "Post created successfully", post: data });
+      res.json({ message: "Post created successfully!", post: data });
     } else {
       if (!content || !title)
-        return res.status(400).json({ error: "Content and title are required" });
+        return res.status(400).json({ error: "Content and title are required!" });
 
       let country_code = null;
       if (country_name) {
         country_code = countryCodes[country_name];
         if (!country_code) {
-          return res.status(400).json({ error: `Invalid country name: ${country_name}` });
+          return res.status(400).json({ error: `Invalid country name: ${country_name}!` });
         }
       }
 
