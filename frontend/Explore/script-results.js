@@ -8,7 +8,7 @@ const query = new URLSearchParams(window.location.search).get('query') || "";
 const q = normalize(query);
 
 // SETARE TITLU
-document.getElementById("searchTitle").innerText = `Results for "${query}"`;
+//document.getElementById("searchTitle").innerText = `Results for "${query}"`;
 
 // CONTAINER REZULTATE
 const container = document.getElementById("searchOutput");
@@ -16,9 +16,10 @@ container.innerHTML = ""; // reset
 
 // VERIFICĂ DACA DATELE EXISTĂ
 if(typeof POSTARI === "undefined" || typeof EVENIMENTE === "undefined"){
-    container.innerHTML = `<p style="text-align:center; color:#ffb162;">Datele nu sunt disponibile.</p>`;
+    document.getElementById("searchTitle").innerText = `"${query}" not found `;
+   // container.innerHTML = `<p style="text-align:center; color:#ffb162;">Datele nu sunt disponibile.</p>`;
 } else {
-
+    document.getElementById("searchTitle").innerText = `Results for "${query}"`;
     let results = [];
 
     // SEARCH POSTĂRI
