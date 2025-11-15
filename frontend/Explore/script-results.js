@@ -1,20 +1,20 @@
-const query = new URLSearchParams(window.location.search).get('query').toLowerCase();
-document.getElementById("searchTitle").innerHTML=`Results for "${query}"</b>`;
-
-function normalize(str){
-    return str
-        .normalize("NFD")
-        .replace(/[u0300-\u036f]/g, "")
-        .toLowerCase();
+function normalize(str){    
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
+const query = new URLSearchParams(window.location.search).get('query');
+const q = normalize(query);
+
+document.getElementById("searchTitle").innerHTML=`Results for "${query}"</b>`;
+
 let results = [];
+
 for (const country in EVENIMENTE){
     EVENIMENTE[country].forEach(event => {
         if(
-            normalize(event.titlu).includes(normalize(query))||
-            normalize(event.descriere).includes(normalize(query)) ||
-            normalize(country).includes(normalize(query))
+            normalize(event.titlu).includes(q)||
+            normalize(event.descriere).includes(q) ||
+            normalize(country).includes(q)
         ){
             results.push({...event, tara: country});
         }
