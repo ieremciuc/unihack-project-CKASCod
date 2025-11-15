@@ -36,7 +36,7 @@ input, select, textarea, button, #title, #eventdate, #location
 
 label
 {
-    background-color: #21262d;
+    background-color: #2c3b4e;
     width: 93.5%;
     margin: auto;
 }
@@ -49,13 +49,13 @@ input::placeholder
 
 input[type="file"], #title, #eventdate, #location
 {
-    background-color: #21262d;
+    background-color: #2c3b4e;
     color: #feb161;
 }
 
 input[type="file"]
 {
-    width: 86.5%;
+    width: 90%;
 }
 
 button
@@ -75,16 +75,16 @@ button:hover
 input[type="radio"] 
 {
     width: auto;
-    background-color: #21262d;
+    background-color: #2c3b4e;
     margin-right: 6px;
 }
 
 .event-post
 {
     display: flex;
-    width: 80%;
+    width: 90%;
     margin: auto;
-    background-color: #21262d;
+    background-color: #2c3b4e;
     flex-direction: row;
     font-family: "DM Sans", sans-serif;
     align-items: center;
@@ -107,7 +107,7 @@ input[type="radio"]
     font-size: 2.3vh;
     font-family: "DM Sans", sans-serif;
     padding: auto;
-    background-color: #21262d;
+    background-color: #2c3b4e;
     color: #feb161;
 }
 
@@ -135,11 +135,11 @@ input[type="radio"]
 }
 
 .dropdown-item:hover {
-    background: #3a4a5f;
+    background: #2c3b4e;
 }
 
 select, textarea {
-    background: #21262d;
+    background: #2c3b4e;
     color: #feb161;
     font-family: "DM Sans", sans-serif;
 }
