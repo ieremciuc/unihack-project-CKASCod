@@ -325,7 +325,7 @@
 
     document.querySelector("#get-random-post-btn").addEventListener("click", async () => {
       const result = await request("/posts/random", "GET");
-      document.querySelector("#get-post-result").textContent = JSON.stringify(result, null, 2);
+      document.querySelector("#get-random-post-result").textContent = JSON.stringify(result, null, 2);
     });
   </script>
 </body>
