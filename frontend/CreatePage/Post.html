@@ -24,7 +24,37 @@
                 <button id="back1">Back</button>
             </div>
         </div>
-        <script>
+        <script type="module">
+            import { SUPABASE_API_URL } from "../config.js";
+            import { CLOUDINARY_API_URL } from "../config.js";
+
+            async function request(endpoint, method = "GET", body = null) {
+                const opts = {
+                    method,
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include"
+                };
+                if (body) opts.body = JSON.stringify(body);
+
+                const res = await fetch(`${SUPABASE_API_URL}${endpoint}`, opts);
+                try { return await res.json(); }
+                catch { return { error: "Invalid JSON response" }; }
+            }
+
+            let uploadedFile = null;        
+            window.addEventListener('load', async () => {
+                const raw = localStorage.getItem('uploadedFile');
+                if (!raw) {
+                alert('No image selected - go back to the select page');
+                window.location.href = 'Select.html';
+                return;
+                }
+
+                const obj  = JSON.parse(raw);
+                const blob = await fetch(obj.dataUrl).then(r => r.blob());
+                uploadedFile = new File([blob], obj.name, { type: obj.type });
+            });
+            
             const countries = [
                 "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda",
                 "Argentina","Armenia","Australia","Austria","Azerbaijan",
@@ -99,14 +129,47 @@
                 window.location.href = "Select.html";
             });
 
-            if (result.error) {
+            document.getElementById('post1').addEventListener('click', async () => {
+                const country_name= document.getElementById('searchbox').value.trim();
+                const content     = document.getElementById('description').value.trim();
+
+                if (!content)     return alert('Description is required');
+                if (!uploadedFile) return alert('No image - go back and select one');
+
+                const form = new FormData();
+                form.append('file', uploadedFile);
+
+                let secure_url;
+                try {
+                const up = await fetch(`${CLOUDINARY_API_URL}/upload`, {
+                    method: 'POST',
+                    body: form
+                });
+                const data = await up.json();
+                if (data.error) throw new Error(data.error.message);
+                    secure_url = data.secure_url;
+                } catch (e) {
+                    alert('Image upload failed: ' + e.message);
+                    return;
+                }
+
+                const payload = {
+                    country_name: country_name || null,
+                    content,
+                    image: secure_url,                         
+                    is_event: false
+                };
+
+                const result = await request('/posts', 'POST', payload);
+
+                if (result.error) {
                     alert('Post failed: ' + (result.error.message || result.error));
                 } else {
-                    alert('Event posted successfully!');
+                    alert('Post posted successfully!');
                     localStorage.removeItem('uploadedFile');
                     window.location.href = '../profile/profile.html';
                 }
-
+            });
         </script>
 
         <br><br><br><br>

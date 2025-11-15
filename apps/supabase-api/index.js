@@ -225,7 +225,8 @@ app.post("/posts", async (req, res) => {
             content,
             image,
             is_event,
-            event_date
+            event_date,
+            title
           }
         ])
         .select()
