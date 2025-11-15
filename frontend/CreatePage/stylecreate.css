@@ -47,7 +47,7 @@ input::placeholder
     opacity: 1;
 }
 
-input[type="file"], #title, #eventdate, #location
+input[type="file"], #event-title, #event-date, #location
 {
     background-color: #2c3b4e;
     color: #feb161;
