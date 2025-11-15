@@ -60,15 +60,13 @@
 
                     // Save to localStorage
                     localStorage.setItem('uploadedFile', JSON.stringify(fileData));
-                    localStorage.setItem('postType', eventRadio.checked ? 'event' : 'post');
 
-                    // Redirect
                     const nextPage = eventRadio.checked ? 'Event.html' : 'Post.html';
                     window.location.href = nextPage;
                 };
 
                 reader.onerror = () => alert('Failed to read file.');
-                reader.readAsDataURL(file);  // This triggers onload
+                reader.readAsDataURL(file);
             });
         </script>
 
