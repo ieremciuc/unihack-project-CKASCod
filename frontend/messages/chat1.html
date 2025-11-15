@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Folkline</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="stylemessages.css">
+    </head>
+    <body>
+        <div class="header">
+            <span class="back" onclick="goBack()">
+                ←
+            </span>
+            <img src="pp.png" id="img">
+            Mark
+        </div>
+
+        <div class="chat-container">
+            <div id="chat-box">
+                <div class="msgin"> This is what the first person says</div>
+                <div class="msgout"> 2</div>
+                <div class="msgin"> 1</div>
+                <div class="msgout"> 2</div>
+                <div class="msgout">2 </div>
+                <div class="msgin">1 </div>
+                <div class="msgout">2 </div>
+            </div>
+        </div>
+
+        <div class="message-bar-static">
+        <input type="text" placeholder="Type your message...">
+        <button>Send</button>
+        </div>
+
+        <script>
+            {
+                function goBack() {
+                    window.location.href = "messages.html";
+                }
+            }
+        </script>
+    </body>
+</html>
