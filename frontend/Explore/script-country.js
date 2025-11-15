@@ -1,24 +1,16 @@
-// ==========================
-// NORMALIZE FĂRĂ DIACRITICE
-// ==========================
 function normalize(str) {
-    return str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-// ==========================
-// CREATE CARD POSTARE/EVENIMENT
-// ==========================
 function createCard(item, isEvent = false) {
     const card = document.createElement("div");
     card.classList.add("result-card");
 
-    // Media (poza sau video)
     let mediaHTML = "";
-    if(item.imagine) mediaHTML = `<img src="${item.imagine}" class="result-media">`;
-    else if(item.video) mediaHTML = `<video class="result-media" controls><source src="${item.video}" type="video/mp4"></video>`;
+    if (item.imagine) mediaHTML = `<img src="${item.imagine}" class="result-media">`;
+    else if (item.video) mediaHTML = `<video class="result-media" controls><source src="${item.video}" type="video/mp4"></video>`;
     else mediaHTML = `<div class="result-media" style="background:#1b2632;"></div>`;
 
-    // Conținut
     let html = `
         ${mediaHTML}
         <div class="result-content">
@@ -30,32 +22,28 @@ function createCard(item, isEvent = false) {
             <p class="result-meta">By ${item.autor}</p>
     `;
 
-    // Toggle participă
-    if(isEvent) html += `<button class="toggle-btn participate-btn">Participate</button>`;
+    if (isEvent) html += `<button class="toggle-btn participate-btn">Participate</button>`;
 
-    // Like / Dislike / Comment
-    if(!isEvent) {
+    if (!isEvent) {
         html += `
             <div class="post-actions">
                 <button class="like-btn">👍 ${item.likes || 0}</button>
                 <button class="dislike-btn">👎 ${item.dislikes || 0}</button>
                 <button class="comment-btn">💬 Comment</button>
-
-                <div class="comment-box" style="display:none; margin-top:10px;">
-                    <textarea class="comment-input" placeholder="Write a comment..."></textarea>
-                    <button class="send-comment">Send</button>
-                </div>
-
-                <div class="comments-list"></div>
             </div>
+            <div class="comment-box" style="display:none; margin-top:10px;">
+                <textarea class="comment-input" placeholder="Write a comment..."></textarea>
+                <button class="send-comment">Send</button>
+            </div>
+            <div class="comments-list" style="margin-top:10px;"></div>
         `;
     }
 
     html += `</div>`;
     card.innerHTML = html;
 
-    // LOGIC LIKE/DISLIKE/COMMENT
-    if(!isEvent){
+    // Logică like/dislike/comment
+    if (!isEvent) {
         const likeBtn = card.querySelector(".like-btn");
         const dislikeBtn = card.querySelector(".dislike-btn");
         const commentBtn = card.querySelector(".comment-btn");
@@ -63,102 +51,92 @@ function createCard(item, isEvent = false) {
         const sendComment = card.querySelector(".send-comment");
         const commentsList = card.querySelector(".comments-list");
 
-        likeBtn.onclick = () => { item.likes = (item.likes||0)+1; likeBtn.innerHTML = `👍 ${item.likes}`; };
-        dislikeBtn.onclick = () => { item.dislikes = (item.dislikes||0)+1; dislikeBtn.innerHTML = `👎 ${item.dislikes}`; };
-        commentBtn.onclick = () => { commentBox.style.display = commentBox.style.display==="none"?"block":"none"; };
+        likeBtn.onclick = () => {
+            item.likes = (item.likes || 0) + 1;
+            likeBtn.innerHTML = `👍 ${item.likes}`;
+        };
+        dislikeBtn.onclick = () => {
+            item.dislikes = (item.dislikes || 0) + 1;
+            dislikeBtn.innerHTML = `👎 ${item.dislikes}`;
+        };
+        commentBtn.onclick = () => {
+            commentBox.style.display = commentBox.style.display === "none" ? "block" : "none";
+        };
         sendComment.onclick = () => {
             const txt = card.querySelector(".comment-input").value.trim();
             if(txt.length>0){
-                const p = document.createElement("p");
-                p.innerText = txt;
+                const p=document.createElement("p");
+                p.innerText=txt;
                 commentsList.appendChild(p);
-                card.querySelector(".comment-input").value = "";
+                card.querySelector(".comment-input").value="";
             }
         };
     }
 
-    // LOGIC TOGGLE PARTICIPATE
-    if(isEvent){
+    if (isEvent) {
         const btn = card.querySelector(".participate-btn");
         btn.onclick = () => {
-            btn.innerText = btn.innerText==="Participate" ? "Already Participating" : "Participate";
+            btn.innerText = btn.innerText === "Participate" ? "Going" : "Participate";
         };
     }
+
+    // Modal pentru media
+    const modal = document.querySelector(".media-modal") || (() => {
+        const m=document.createElement("div");
+        m.classList.add("media-modal","hidden");
+        const c=document.createElement("div");
+        c.classList.add("modal-content");
+        m.appendChild(c);
+        document.body.appendChild(m);
+        m.addEventListener("click", ()=>{
+            m.classList.add("hidden");
+            c.innerHTML="";
+        });
+        return m;
+    })();
+    const modalContent = modal.querySelector(".modal-content");
+
+    card.querySelectorAll(".result-media").forEach(media=>{
+        media.onclick = e=>{
+            e.stopPropagation();
+            modalContent.innerHTML="";
+            if(media.tagName==="IMG"){
+                const img=document.createElement("img");
+                img.src=media.src;
+                modalContent.appendChild(img);
+            } else if(media.tagName==="VIDEO"){
+                const video=document.createElement("video");
+                video.src=media.querySelector("source").src;
+                video.controls=true;
+                video.autoplay=true;
+                modalContent.appendChild(video);
+            }
+            modal.classList.remove("hidden");
+        };
+    });
 
     return card;
 }
 
-// ==========================
-// PRELUARE PARAMETRU DIN URL
-// ==========================
+// Preluare țară
 const url = new URLSearchParams(window.location.search);
 const country = url.get("country");
-const container = document.getElementById("countryEvents");
 document.getElementById("pageTitle").innerText = country;
+const container = document.getElementById("countryEvents");
 
-// INCAREC DATA MOCK
 let events=[], posts=[];
 if(typeof EVENIMENTE!=="undefined" && EVENIMENTE[country]) events=EVENIMENTE[country];
 if(typeof POSTARI!=="undefined" && POSTARI[country]) posts=POSTARI[country];
 
-// AFISARE CARDURI
 if(events.length===0 && posts.length===0){
-    container.innerHTML += `<p style="text-align:center; color:#ffb162;">No results found</p>`;
+    container.innerHTML=`<p style="text-align:center; color:#ffb162;">No results found</p>`;
 } else {
-    posts.forEach(post => {
-        post.tara = country;
-        const card = createCard(post, false);
-        container.appendChild(card);
+    posts.forEach(post=>{
+        post.tara=country;
+        container.appendChild(createCard(post,false));
     });
-
-    events.forEach(event => {
-        event.tara = country;
-        const card = createCard(event, true);
-        container.appendChild(card);
+    events.forEach(event=>{
+        event.tara=country;
+        container.appendChild(createCard(event,true));
     });
 }
-
-// ==========================
-// MEDIA MODAL
-// ==========================
-let modal = document.createElement("div");
-modal.id = "mediaModal";
-modal.classList.add("media-modal","hidden");
-modal.innerHTML = `
-    <img id="modalImg" class="modal-content hidden">
-    <video id="modalVideo" class="modal-content hidden" controls></video>
-`;
-document.body.appendChild(modal);
-const modalImg = document.getElementById("modalImg");
-const modalVideo = document.getElementById("modalVideo");
-
-function openMedia(media){
-    modal.classList.remove("hidden");
-    if(media.tagName.toLowerCase()==="img"){
-        modalImg.src = media.src;
-        modalImg.classList.remove("hidden");
-        modalVideo.classList.add("hidden");
-        modalVideo.pause();
-    } else if(media.tagName.toLowerCase()==="video"){
-        const src = media.querySelector("source")?.src || media.src;
-        modalVideo.src = src;
-        modalVideo.classList.remove("hidden");
-        modalImg.classList.add("hidden");
-        modalVideo.play();
-    }
-}
-
-document.addEventListener("click", e => {
-    if(e.target.classList.contains("result-media") || e.target.classList.contains("post-media")){
-        openMedia(e.target);
-    }
-});
-
-modal.addEventListener("click", e => {
-    if(e.target===modal){
-        modal.classList.add("hidden");
-        modalImg.classList.add("hidden");
-        modalVideo.classList.add("hidden");
-        modalVideo.pause();
-    }
-});
