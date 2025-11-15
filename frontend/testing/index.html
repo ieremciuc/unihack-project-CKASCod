@@ -114,5 +114,61 @@
       }
     });
   </script>
+  <h2>Current Session</h2>
+  <button id="check-session-btn">Check Logged-in User</button>
+  <button id="logout-btn">Logout</button>
+  <pre id="session-result">Not checked yet.</pre>
+  
+  <h2>Login</h2>
+  <input id="login-email" placeholder="Email or Username" />
+  <input id="login-password" placeholder="Password" type="password" />
+  <button id="login-btn">Login</button>
+  <pre id="login-result"></pre>
+  <script type="module">
+    import { SUPABASE_API_URL } from "../config.js";
+
+    // ======= Helper request function =======
+    async function request(endpoint, method = "GET", body = null) {
+      const options = {
+        method,
+        headers: { "Content-Type": "application/json" },
+        credentials: "include" // ✅ include cookies for session
+      };
+      if (body) options.body = JSON.stringify(body);
+
+      const res = await fetch(`${SUPABASE_API_URL}${endpoint}`, options);
+      try {
+        return await res.json();
+      } catch {
+        return { error: "Invalid JSON response" };
+      }
+    }
+
+    document.querySelector("#login-btn").addEventListener("click", async () => {
+      const emailOrUsername = document.querySelector("#login-email").value;
+      const password = document.querySelector("#login-password").value;
+
+      const result = await request("/p_users/login", "POST", { emailOrUsername, password });
+      document.querySelector("#login-result").textContent = JSON.stringify(result, null, 2);
+
+      if (result.user?.id) {
+        document.querySelector("#post-user-id").value = result.user.id;
+      }
+    });
+
+    document.querySelector("#check-session-btn").addEventListener("click", async () => {
+      const result = await request("/p_users/me", "GET");
+      document.querySelector("#session-result").textContent = JSON.stringify(result, null, 2);
+      if (result.userId) {
+        document.querySelector("#post-user-id").value = result.userId;
+      }
+    });
+
+    document.querySelector("#logout-btn").addEventListener("click", async () => {
+      const result = await request("/p_users/logout", "POST");
+      document.querySelector("#session-result").textContent = JSON.stringify(result, null, 2);
+      document.querySelector("#post-user-id").value = "";
+    });
+  </script>
 </body>
 </html>

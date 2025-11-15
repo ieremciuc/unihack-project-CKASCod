@@ -75,4 +75,63 @@ app.post("/p_users/register", async (req, res) => {
   }
 });
 
+app.post("/p_users/login", async (req, res) => {
+  try {
+    const { emailOrUsername, password } = req.body;
+
+    if (!emailOrUsername || !password)
+      return res.status(400).json({ error: "Missing credentials" });
+
+    // Try to find user by email OR username
+    const { data: user, error } = await supabase
+      .from("p_users")
+      .select("*")
+      .or(`email.eq.${emailOrUsername},username.eq.${emailOrUsername}`)
+      .single();
+
+    if (error || !user)
+      return res.status(400).json({ error: "User not found" });
+
+    // Compare hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid)
+      return res.status(401).json({ error: "Invalid password" });
+
+    req.session.userId = user.user_id;
+    console.log("Session created:", req.session);
+    
+    if (!req.session.userId) {
+      return res.status(401).json({ loggedIn: false });
+    }
+
+    res.json({
+      message: "Login successful",
+      user: {
+        id: user.user_id,
+        username: user.username,
+        email: user.email,
+        created_at: user.created_at
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/p_users/me", (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json({ loggedIn: false });
+  }
+  res.json({ loggedIn: true, userId: req.session.userId });
+});
+
+app.post("/p_users/logout", (req, res) => {
+  req.session.destroy(err => {
+    if (err) return res.status(500).json({ error: "Logout failed" });
+    res.clearCookie("connect.sid");
+    res.json({ message: "Logged out successfully" });
+  });
+});
+
 app.listen(PORT, () => console.log(`Supabase API running on port ${PORT}`));
