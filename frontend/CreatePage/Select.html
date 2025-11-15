@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Folkline </title>
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="stylecreate.css">
+        <link rel="stylesheet" href="../navbar/nav-style.css">
+        <link rel="stylesheet" href="../topbar/top-style.css">
+
+
+    </head>
+    <body>
+        <div id="topbar"></div>
+        <br><br><br><br>
+
+        <div class="square">
+            <input type="file" id="filebutton">
+            <div class="event-post">
+                <div class="event-button">
+                    <input type="radio" id="event" name="type" value="event">
+                    <label for="event">Event</label>
+                </div>
+                <div class="event-button">
+                    <input type="radio" id="post" name="type" value="post">
+                    <label for="post">Post</label>
+                </div>
+                </label>
+            </div>
+            <button id="continuebutton" disabled> Continue </button>
+        </div>
+        <script>
+            const fileInput = document.getElementById('filebutton');
+            const continuebtn = document.getElementById('continuebutton');
+            const eventRadio = document.getElementById('event');
+            const postRadio = document.getElementById('post');
+
+            fileInput.addEventListener('change',() => {
+                const file = fileInput.files[0];
+                continuebtn.disabled = !file;
+            });
+
+            continuebtn.addEventListener('click', ()=>{
+                const file=fileInput.files[0];
+                if(!file) return;
+
+            localStorage.setItem('selectedFileName', file.name);
+
+            if(eventRadio.checked)
+            {
+                window.location.href = 'Event.html';
+            } else if(postRadio.checked)
+            {
+                window.location.href = 'Post.html';
+            }else
+            {
+                alert('Please select Event or Post.');
+            }
+        });
+        </script>
+
+        <br><br><br><br>
+        <div id="navbar"></div>
+
+        <script>
+            const pageBase = "../../"
+            const fetchLocation = pageBase + "frontend/navbar/navbar.html"
+            fetch(fetchLocation)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("navbar").innerHTML = html;
+                navbar.innerHTML = html;
+                const active = navbar.dataset.active;
+                const icon = navbar.querySelector(`[data-icon="${active}"]`);
+                if (icon) icon.classList.add("active");
+            });
+            const fetchLocationTop = pageBase + "frontend/topbar/topbar.html"
+            fetch(fetchLocationTop)
+            .then(res => res.text())
+            .then(html => {
+                html = html.replaceAll("{{BASE}}", pageBase);
+                document.getElementById("topbar").innerHTML = html;
+            });
+        </script>
+
+    </body>
+</html>
