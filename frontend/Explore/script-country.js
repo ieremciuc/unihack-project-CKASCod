@@ -1,3 +1,7 @@
+function normalize(str){
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+}
+
 const url = new URLSearchParams(window.location.search);
 const country = url.get("country");
 
@@ -16,9 +20,17 @@ lista.forEach(event=>{
         ${event.imagine ? `<img src="${event.imagine}" class="post-media"/>` : ""}
         ${event.video ? `<video class="post-media" controls>
             <source src="${event.video}" type="video/mp4">
-            </video>` : ""
-        }
+            </video>` : ""}
+        <button class="toggle-btn">Participate</button>
         `;
-    container.appendChild(card);
+
+    const btn = card.querySelector(".toggle-btn");
+    btn.onclick = () => {
+        btn.innerText=
+            btn.innerText === "Participate"
+            ?"You are already participating at this event"
+            :"Participate";
+    };
+    document.getElementById("countryEvents").appendChild(card);
 });
 

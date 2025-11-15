@@ -8,7 +8,7 @@ const GEO={
     "South America":["Brazil","Argentina","Colombia","Chile","Peru"],
     "Oceania":["Australia","New Zealand","Fiji","Papua New Guinea","Samoa"]
 };
-
+//DATE MOCK
 const EVENIMENTE={
     "Romania":[
         {titlu:"Festivalul Toamnei", descriere:"Traditii si muzica populara"}],
@@ -67,6 +67,13 @@ document.querySelectorAll(".continent-card").forEach(btn => {
 });
 
 //SEARCH - lansare pagina la enter
+
+function normalize(str){
+    return str
+        .normalize("NFD")
+        .replace(/[u0300-\u036f]/g, "")
+        .toLowerCase();
+}
 
 searchInput.addEventListener("keydown", (e) => {
     if(e.key === "Enter")
