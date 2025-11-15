@@ -265,3 +265,21 @@ body{
 
     opacity: 0.8;
 }
+
+/* Search result media */
+#searchOutput .result-media,
+#searchOutput .post-media {
+    width: 90px;       /* mai mic decât 120px de pe country page */
+    height: 90px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Responsive pentru mobil */
+@media screen and (max-width: 600px) {
+    #searchOutput .result-media,
+    #searchOutput .post-media {
+        width: 80%;
+        height: auto;
+    }
+}

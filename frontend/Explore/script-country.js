@@ -1,4 +1,4 @@
-// NORMALIZARE FĂRĂ DIACRITICE
+// NORMALIZE FUNCTION (without diacritics)
 function normalize(str) {
     return str
         .normalize("NFD")
@@ -6,18 +6,16 @@ function normalize(str) {
         .toLowerCase();
 }
 
-// CREARE CARD – POSTARE / EVENIMENT
-
+// CREATE CARD – POST OR EVENT
 function createCard(item, isEvent = false) {
     const card = document.createElement("div");
     card.classList.add("result-card");
 
-    // media (poza sau video)
+    // media (image or video)
     let mediaHTML = "";
     if (item.imagine) {
         mediaHTML = `<img src="${item.imagine}" class="result-media">`;
-    }
-    else if (item.video) {
+    } else if (item.video) {
         mediaHTML = `
             <video class="result-media" controls>
                 <source src="${item.video}" type="video/mp4">
@@ -27,35 +25,34 @@ function createCard(item, isEvent = false) {
         mediaHTML = `<div class="result-media" style="background:#1b2632;"></div>`;
     }
 
-    // conținut
+    // content
     let html = `
         ${mediaHTML}
         <div class="result-content">
             <h3>${item.titlu}</h3>
-            <p><strong>Țara:</strong> ${item.tara}</p>
-            ${isEvent ? `<p><strong>Data:</strong> ${item.data}</p>` : ""}
-            ${isEvent ? `<p><strong>Locație:</strong> ${item.locatie}</p>` : ""}
+            <p><strong>Country:</strong> ${item.tara}</p>
+            ${isEvent ? `<p><strong>Date:</strong> ${item.data}</p>` : ""}
+            ${isEvent ? `<p><strong>Location:</strong> ${item.locatie}</p>` : ""}
             <p>${item.descriere}</p>
             <p class="result-meta">By ${item.autor}</p>
     `;
 
-    // EVENT: toggle participă
+    // toggle participate for events
     if (isEvent) {
-        html += `<button class="toggle-btn participate-btn">Participă</button>`;
+        html += `<button class="toggle-btn participate-btn">Participate</button>`;
     }
 
-    // POSTARE: like / dislike / comment
-
+    // post actions
     if (!isEvent) {
         html += `
             <div class="post-actions">
                 <button class="like-btn">👍 ${item.likes || 0}</button>
                 <button class="dislike-btn">👎 ${item.dislikes || 0}</button>
-                <button class="comment-btn">💬 Comentează</button>
+                <button class="comment-btn">💬 Comment</button>
 
                 <div class="comment-box" style="display:none; margin-top:10px;">
-                    <textarea class="comment-input" placeholder="Scrie un comentariu..."></textarea>
-                    <button class="send-comment">Trimite</button>
+                    <textarea class="comment-input" placeholder="Write a comment..."></textarea>
+                    <button class="send-comment">Send</button>
                 </div>
 
                 <div class="comments-list"></div>
@@ -66,9 +63,7 @@ function createCard(item, isEvent = false) {
     html += `</div>`;
     card.innerHTML = html;
 
-    // -------------------------------------------
-    // LOGICĂ BUTOANE POSTARE
-    // -------------------------------------------
+    // POST BUTTON LOGIC
     if (!isEvent) {
         const likeBtn = card.querySelector(".like-btn");
         const dislikeBtn = card.querySelector(".dislike-btn");
@@ -77,24 +72,20 @@ function createCard(item, isEvent = false) {
         const sendComment = card.querySelector(".send-comment");
         const commentsList = card.querySelector(".comments-list");
 
-        // like
         likeBtn.onclick = () => {
             item.likes = (item.likes || 0) + 1;
             likeBtn.innerHTML = `👍 ${item.likes}`;
         };
 
-        // dislike
         dislikeBtn.onclick = () => {
             item.dislikes = (item.dislikes || 0) + 1;
             dislikeBtn.innerHTML = `👎 ${item.dislikes}`;
         };
 
-        // afișare/ascundere comentarii
         commentBtn.onclick = () => {
             commentBox.style.display = commentBox.style.display === "none" ? "block" : "none";
         };
 
-        // adăugare comentariu
         sendComment.onclick = () => {
             const txt = card.querySelector(".comment-input").value.trim();
             if (txt.length > 0) {
@@ -106,41 +97,32 @@ function createCard(item, isEvent = false) {
         };
     }
 
-    // LOGICĂ BUTON PARTICIPĂ (evenimente)
-    
+    // EVENT PARTICIPATE BUTTON LOGIC
     if (isEvent) {
         const btn = card.querySelector(".participate-btn");
         btn.onclick = () => {
             btn.innerText =
-                btn.innerText === "Participă"
-                    ? "Participi deja"
-                    : "Participă";
+                btn.innerText === "Participate"
+                    ? "You are participating"
+                    : "Participate";
         };
     }
 
     return card;
 }
 
-// PRELUARE PARAMETRU DIN URL
-
+// GET COUNTRY FROM URL
 const url = new URLSearchParams(window.location.search);
 const country = url.get("country");
 
-// SELECTARE CONTAINER
+// CONTAINER
 const container = document.getElementById("countryEvents");
 document.getElementById("pageTitle").innerText = country;
 
-// ÎNCĂRCARE DATE MOCK SAU BACKEND
-
-// Pentru backend
-// fetch(`/api/country/${country}`)
-//   .then(r => r.json())
-//   .then(data => render(data.events, data.posts));
-
+// LOAD DATA (mock or backend)
 let events = [];
 let posts = [];
 
-// fallback: folosim mock-data.js
 if (typeof EVENIMENTE !== "undefined" && EVENIMENTE[country]) {
     events = EVENIMENTE[country];
 }
@@ -148,23 +130,19 @@ if (typeof POSTARI !== "undefined" && POSTARI[country]) {
     posts = POSTARI[country];
 }
 
-// AFIȘARE REZULTATE
-
+// DISPLAY RESULTS
 if ((events.length === 0) && (posts.length === 0)) {
-    container.innerHTML += `<p style="text-align:center; color:#ffb162;">Nu s-au găsit rezultate</p>`;
+    container.innerHTML = `<p style="text-align:center; color:#ffb162;">No results found</p>`;
 } else {
-    // POSTĂRI
     posts.forEach(post => {
-        post.tara = country;  // pentru afișare
+        post.tara = country;
         const card = createCard(post, false);
         container.appendChild(card);
     });
 
-    // EVENIMENTE
     events.forEach(event => {
         event.tara = country;
         const card = createCard(event, true);
         container.appendChild(card);
     });
 }
-//<script src="mock-data.js"></script>
