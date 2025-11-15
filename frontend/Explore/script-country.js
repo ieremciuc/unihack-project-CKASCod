@@ -76,7 +76,7 @@ function createCard(item, isEvent = false) {
     if (isEvent) {
         const btn = card.querySelector(".participate-btn");
         btn.onclick = () => {
-            btn.innerText = btn.innerText === "Participate" ? "Going" : "Participate";
+            btn.innerText = btn.innerText === "Participate" ? "You are participating" : "Participate";
         };
     }
 
