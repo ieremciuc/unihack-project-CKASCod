@@ -296,7 +296,10 @@ app.get("/posts/post/random", async (req, res) => {
       .limit(1);
 
     if (error) throw error;
-
+    // ---
+    console.log(data.length);
+    console.log(data);
+    // ---
     if (!data || data.length === 0) {
       return res.status(404).json({ error: "No posts found" });
     }
